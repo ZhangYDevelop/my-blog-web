@@ -1,0 +1,60 @@
+<div style="margin: 10px 200px 0px 200px; width: 100%; ">
+  <nz-content style="width: 800px;float: left;">
+    <div *ngFor=" let item of articleList">
+      <nz-card style="width: 100%;" [nzBordered]="false" nzTitle="{{item.articleTitle}}" [nzExtra]="extraTemplate">
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '30%', height: '200px'}">
+
+          <img style="width: 200px;height: 160px;" src="/assets/img_13.jpg" />
+        </div>
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '70%', height: '200px'}">
+          <div>
+            {{item.articleSummary.replace('&nbsp;', '') + '...'}}
+          </div>
+          <div style="position: absolute; bottom: 10px; right: 40px; ">
+            {{item.articleCreateTime | date:"yyyy年MM月dd日"}}
+          </div>
+        </div>
+      </nz-card>
+      <ng-template #extraTemplate>
+        <div style="margin-right: 100px;">
+          <span class="icon iconfont" style="margin-left: 30px;">&#xe60c;</span> {{item.articleLikeCount}}
+          <span class="icon iconfont" style="margin-left: 30px;">&#xe60d;</span> {{item.articleViewCount}}
+          <span class="icon iconfont" style="margin-left: 30px;">&#xe884;</span> {{item.articleCommentCount}}
+        </div>
+      </ng-template>
+    </div>
+  </nz-content>
+  <nz-sider style="width: 450px; float: left;">
+    <div style="margin-left: 30px;">
+      <nz-card style="width:100%" nzTitle="关于本站">
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '40%', height: '160px' , padding: '5px'}">
+          <img style="width: 100%;height: 100%;" src="/assets/img_13.jpg" />
+        </div>
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '60%', height: '160px'}">
+          <h2>博客初心</h2>
+          <p>程序人生，用不止步</p>
+        </div>
+        <div nz-card-grid nzHoverable="false" style="text-align: center;"
+          [ngStyle]="{width: '100%', height: '40px', padding: '0px'}">
+          <a> <span class="icon iconfont" style="font-size: 24px;">&#xe6ea;</span></a>
+          <a> <span class="icon iconfont" style="font-size: 24px;padding-left: 20px;">&#xea0a;</span></a>
+        </div>
+      </nz-card>
+
+
+      <nz-card style="width:100%;" nzTitle="网站概况" [nzExtra]="siteGaikuang">
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%', height: '200px'}"></div>
+      </nz-card>
+      <ng-template #siteGaikuang>
+        <a>More</a>
+      </ng-template>
+
+      <nz-card style="width:100%;" nzTitle="最近评论" [nzExtra]="latestCommon">
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%', height: '200px'}"></div>
+      </nz-card>
+      <ng-template #latestCommon>
+        <a>More</a>
+      </ng-template>
+    </div>
+  </nz-sider>
+</div>
