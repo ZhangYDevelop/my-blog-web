@@ -11,9 +11,17 @@ export class BlogMainService {
 
     private articleUrl = '';
 
+    private optionsUrl = '';
+
+    private siteGkUrl = '';
+
     constructor(private http: HttpClient) {
 
         this.articleUrl = environment.SERVER_URL + '/home/index';
+
+        this.optionsUrl = environment.SERVER_URL  + '/home/options'
+
+        this.siteGkUrl = environment.SERVER_URL + '/home/siteGk';
 
     }
 
@@ -27,4 +35,21 @@ export class BlogMainService {
     }
 
 
+     /**
+     * 查询所有文章
+     * 
+     */
+    queryOptions(): Observable<HttpResponse<any>> {
+        return this.http.get<any>(this.optionsUrl, {  observe: 'response' });
+    }
+
+    
+
+      /**
+     * 网站概况
+     * 
+     */
+    getSiteGk(): Observable<HttpResponse<any>> {
+        return this.http.get<any>(this.siteGkUrl, {  observe: 'response' });
+    }
 }

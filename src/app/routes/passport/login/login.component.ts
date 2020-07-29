@@ -119,7 +119,6 @@ export class UserLoginComponent implements OnDestroy {
         // 清空路由复用信息
         this.reuseTabService.clear();
         // 设置用户Token信息
-        debugger
         this.tokenService.set({
           token: 'Bearer ' + res.access_token,
           token_type: res.token_type,
@@ -193,5 +192,13 @@ export class UserLoginComponent implements OnDestroy {
     if (this.interval$) {
       clearInterval(this.interval$);
     }
+  }
+
+  
+  /**
+   * 博客首页
+   */
+  toHome() {
+    this.router.navigateByUrl('/');
   }
 }

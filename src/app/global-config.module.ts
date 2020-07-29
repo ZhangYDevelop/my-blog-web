@@ -20,7 +20,7 @@ const alainProvides = [{ provide: ALAIN_CONFIG, useValue: alainConfig }];
 
 // mock
 import { environment } from '@env/environment';
-import * as MOCKDATA from '../../_mock';
+// import * as MOCKDATA from '../../_mock';
 if (!environment.production) {
   // alainConfig.mock = { data: MOCKDATA };
 }

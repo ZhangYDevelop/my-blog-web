@@ -3,6 +3,7 @@ import { App, SettingsService } from '@delon/theme';
 
 import { Router } from '@angular/router';
 import { BlogHomeService } from './blog-home.service';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-blog-home-layout-header',
@@ -25,9 +26,9 @@ export class BlogHomeLayoutHeaderComponent implements OnInit {
     return this.settings.layout.collapsed;
   }
 
-  constructor(private settings: SettingsService, private blogHomeService: BlogHomeService, private router: Router) { }
+  constructor(private settings: SettingsService, private blogHomeService: BlogHomeService,
+     private router: Router) { }
   ngOnInit(): void {
-
     this.blogHomeService.queryAllTag().subscribe(res => {
       this.tagList = res.body;
     });
