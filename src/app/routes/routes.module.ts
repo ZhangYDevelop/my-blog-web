@@ -16,6 +16,8 @@ import { UserRegisterComponent } from './passport/register/register.component';
 import { RouteRoutingModule } from './routes-routing.module';
 
 import { BlogHomeComponent } from './home/blog-main.component';
+import { BlogHomeLayoutComponent } from '../layout/default/header/blog-home/bloghome-layout.component';
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 
 const COMPONENTS = [
   DashboardV1Component,
@@ -29,7 +31,8 @@ const COMPONENTS = [
   // single pages
   UserLockComponent,
   CallbackComponent,
-  BlogHomeComponent
+  BlogHomeComponent,
+  ArticleDetailComponent
 ];
 const COMPONENTS_NOROUNT = [];
 

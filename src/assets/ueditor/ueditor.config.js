@@ -9,6 +9,8 @@
  * 当升级编辑器时，可直接使用旧版配置文件替换新版配置文件,不用担心旧版配置文件中因缺少新功能所需的参数而导致脚本报错。
  **************************提示********************************/
 
+// const { environment } = require("ng-zorro-antd");
+
 (function () {
 
     /**
@@ -30,7 +32,7 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        , serverUrl: "http://81.70.31.159:8080/resourceHandle/ueditor/ueditorUpload"
+        , serverUrl: "http://localhost:8080/home/upload"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[

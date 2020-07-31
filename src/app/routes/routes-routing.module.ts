@@ -22,6 +22,7 @@ import { UserRegisterComponent } from './passport/register/register.component';
 
 import { BlogHomeLayoutComponent } from '../layout/default/header/blog-home/bloghome-layout.component';
 import { BlogHomeComponent } from './home/blog-main.component';
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,18 @@ const routes: Routes = [
       {
         path: 'blog',
         component: BlogHomeComponent,
+        data: { title: '微博客', titleI18n: '小宇哥' },
+      },
+    ]
+  },
+   // 博客详情
+  {
+    path: 'article',
+    component: BlogHomeLayoutComponent,
+    children: [
+      {
+        path: 'detail',
+        component: ArticleDetailComponent,
         data: { title: '微博客', titleI18n: '小宇哥' },
       },
     ]

@@ -3,13 +3,13 @@ import { _HttpClient } from '@delon/theme';
 
 import { BlogMainService } from './blog-main.service';
 import { environment } from '@env/environment';
-import { env } from 'process';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-home',
   templateUrl: './blog-main.component.html'
 })
-export class BlogHomeComponent implements OnInit {
+export class BlogHomeComponent  implements OnInit {
 
    articleList = [];
 
@@ -23,10 +23,65 @@ export class BlogHomeComponent implements OnInit {
 
    siteGk = [];
 
-  constructor(private blogHomeIndexService: BlogMainService) {
+   noticeList = [];
 
-  }
+   commonentList = [];
+
+   noticeStr = '';
+
+   editorContent = '';
+
+   ueditor_config = {
+    toolbars: [
+      [
+        'FullScreen', // 全屏
+        'bold', // 加粗
+        'italic', // 斜体
+        'underline', // 下划线
+        '|',
+        'forecolor',  // 字体颜色
+        'backcolor',  // 背景色
+        'fontfamily', // 字体
+        'fontsize', // 字号
+        'insertcode',// 代码语言
+        '|',
+        'insertorderedlist',  // 有序列表
+        'insertunorderedlist',  // 无序列表
+        '|',
+        'justifyleft',  // 左对齐
+        'justifycenter',  // 居中对齐
+        'justifyright', // 右对齐
+        'justifyjustify', // 两端对齐
+        '|',
+        'link', // 超链接
+        'unlink', // 取消链接
+        'inserttable', // 插入表格
+        '|',
+        'simpleupload', // 单图上传
+      ]
+    ],
+    autoClearinitialContent: true,  // 自动清除初始内容
+    wordCount: true, // 文字计数
+    focus: false, // 初始化后获得焦点
+    initialFrameHeight: 100, // 设置高度
+    initialFrameWidth: '100%', // 设置宽度
+    enableDragUpload: true, // 启用拖放上传
+    enablePasteUpload: true, // 启用粘贴上传
+    imageScaleEnabled: true, // 启用图片拉伸缩放
+    autoHeightEnabled: true, // 自动高度
+  };
+
+   
+
+constructor(private blogHomeIndexService: BlogMainService, private router: Router) {
+  // super();
+}
+
   ngOnInit() {
+
+    // this.loading = this.ui.loading || '加载中……';
+    // this.configs = this.ui.config || {};
+    // this.delays = this.ui.delay || 300;
 
     const param = { pageIndex: this.pageIndex, pageSize: this.pageSize };
     this.blogHomeIndexService.queryArticleByPage(param).subscribe(res => {
@@ -34,6 +89,8 @@ export class BlogHomeComponent implements OnInit {
       this.articleList.forEach(item => {
           item.imgStr = environment.fileDownPath + '/thumbnail/random/img_' + item.articleId % 15 + '.jpg'
       });
+
+      this.editorContent =  this.articleList[0].articleContent;
     });
 
     this.blogHomeIndexService.queryOptions().subscribe(res => {
@@ -48,7 +105,20 @@ export class BlogHomeComponent implements OnInit {
     this.blogHomeIndexService.getSiteGk().subscribe(res => {
         this.siteGk = res.body;
     });
+
+    this.blogHomeIndexService.getNotice().subscribe(res => {
+        this.noticeList = res.body;
+    });
+
+    this.blogHomeIndexService.getCommonent().subscribe(res => {
+      if (res.body) {
+        this.commonentList = res.body;
+      }
+      
+    });
   }
+  
+
 
 
   gitHubClick() {
@@ -61,5 +131,13 @@ export class BlogHomeComponent implements OnInit {
 
   nzOnCancel() {
     this.isVisible = false;
+  }
+
+  /**
+   * 标题点击
+   * @param item
+   */
+  titleClick(item: any) {
+      this.router.navigate(['/article/detail'], {queryParams: {articleId: item.articleId}});
   }
 }
