@@ -1,6 +1,6 @@
-<div style="margin: 20px 0px 20px 0px; width: 100%; height: 80px;">
+<div style="padding: 0px 100px 0px 100px; width: 100%; height: 80px;">
   <div class="alain-default__header-logo" style="width: 10%;float: left;">
-    <a [routerLink]="['/']" class="alain-default__header-logo-link" style="margin-top: 5PX;">
+    <a (click)="routeClick()" class="alain-default__header-logo-link" style="margin-top: 5PX;">
       <h1 style="margin: 0px;">微博客</h1>
       <div style="color: black;">搬砖小宇哥</div>
     </a>
@@ -12,7 +12,7 @@
         <li  nz-submenu nzTitle="{{item.categoryName}}" nzIcon="{{item.categoryIcon}}">
           <ul>
             <div *ngFor="let item2 of item.child">
-              <li  nz-menu-item > {{item2.categoryName}}
+              <li style="cursor: pointer;" (click)="menuClick(item2)" nz-menu-item > {{item2.categoryName}}
               </li>
             </div>
           </ul>
@@ -24,12 +24,11 @@
 
   <div style="width: 20%;margin: 25px 0px 0px 40px;float: left;">
     <nz-input-group [nzSuffix]="suffixIconSearch">
-      <input type="text" nz-input placeholder="搜微博客" />
+      <input type="text" [(ngModel)]="searchWord" nz-input placeholder="搜微博客"   (keydown)="keyDown($event)"/>
     </nz-input-group>
     <ng-template #suffixIconSearch>
-      <i nz-icon nzType="search"></i>
+      <i style="cursor: pointer;" (click)="search()" nz-icon nzType="search"></i>
     </ng-template>
-
   </div>
 
   <div style=" width: 5%; margin: 30px 0px 0px 40px; float: left;">

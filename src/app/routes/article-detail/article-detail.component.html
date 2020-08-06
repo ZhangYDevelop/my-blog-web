@@ -1,4 +1,38 @@
-<div id = "articleContent" style="padding: 50px;">
-
-
+<div style="padding: 0px 100px 0px 100px;">
+    <div  nzHoverable="false" nz-card-grid  [ngStyle]="{width: '60%'}" >
+        <div id = "articleContent">
+     
+        </div>
+     
+     </div>
+     <div  nzHoverable="false" nz-card-grid [ngStyle]="{width: '40%'}">
+         <nz-card style="width:100%;"  [nzTitle]="hotArticle">
+             <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
+                <div *ngFor=" let item of hotArticleList; let i= index;">
+                 <strong>{{i + 1}}、</strong>
+                 <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
+                </div>
+             </div>
+           </nz-card>
+           <ng-template #hotArticle>
+             <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
+               <use xlink:href="#icon-pinglun"></use>
+             </svg><p style="margin-left: 30px; height: 5px;">热评文章</p>
+           </ng-template>
+     
+           <nz-card style="width:100%;"  [nzTitle]="randomArticle">
+             <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
+                <div *ngFor=" let item of randomArticleList; let i= index;">
+                   <strong>{{i + 1}}、</strong>
+                   <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
+                </div>
+             </div>
+           </nz-card>
+           <ng-template #randomArticle>
+             <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
+               <use xlink:href="#icon-pinglun"></use>
+             </svg><p style="margin-left: 30px; height: 5px;">随机文章</p>
+           </ng-template>
+     </div>
+     
 </div>

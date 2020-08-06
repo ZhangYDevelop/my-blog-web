@@ -11,6 +11,8 @@ export class BlogMainService {
 
     private articleUrl = '';
 
+    private articleSearchWdUrl = '';
+
     private optionsUrl = '';
 
     private siteGkUrl = '';
@@ -23,15 +25,25 @@ export class BlogMainService {
 
     private articleViewUrl = '';
 
+    private mostCommonentArticleUrl = '';
+
+    private randomArticleUrl = '';
+
     constructor(private http: HttpClient) {
+
+        this.randomArticleUrl = environment.SERVER_URL + '/home/article/randomArticleList';
+
+        this.mostCommonentArticleUrl = environment.SERVER_URL + '/home/article/mostCommentArticleList';
 
         this.articleUrl = environment.SERVER_URL + '/home/index';
 
+        this.articleSearchWdUrl = environment.SERVER_URL + '/home/index/search';
+
         this.articleDetailUrl = environment.SERVER_URL + '/home/article/detail';
 
-        this.articleViewUrl = environment.SERVER_URL + '/home/article/view'; 
+        this.articleViewUrl = environment.SERVER_URL + '/home/article/view';
 
-        this.optionsUrl = environment.SERVER_URL  + '/home/options'
+        this.optionsUrl = environment.SERVER_URL + '/home/options'
 
         this.siteGkUrl = environment.SERVER_URL + '/home/siteGk';
 
@@ -41,12 +53,37 @@ export class BlogMainService {
 
     }
 
+    
+    /**
+     * 获取随机文章
+     * 
+     */
+    getRandomArticle(): Observable<HttpResponse<any>> {
+        return this.http.get<any>(this.randomArticleUrl, {  observe: 'response' });
+    }
+
+    /**
+     * 获取热评文章
+     * 
+     */
+    getHotCommonentArticle(): Observable<HttpResponse<any>> {
+        return this.http.get<any>(this.mostCommonentArticleUrl, {  observe: 'response' });
+    }
+
+    /**
+     * 关键字查询所有文章
+     * 
+     */
+    queryArticleByPageByKeyWd(param): Observable<HttpResponse<any>> {
+        return this.http.get<any>(this.articleSearchWdUrl, { params: param, observe: 'response' });
+    }
+
     /**
      * 根据文章ID增加文章浏览数量
      * @param id
      */
     addArticleView(id): Observable<HttpResponse<any>> {
-        return this.http.get<any>(`${this.articleViewUrl}/${id}`, {  observe: 'response' });
+        return this.http.get<any>(`${this.articleViewUrl}/${id}`, { observe: 'response' });
     }
 
 
@@ -55,7 +92,7 @@ export class BlogMainService {
      * 
      */
     queryArticleByPage(param): Observable<HttpResponse<any>> {
-        return this.http.get<any>(this.articleUrl , { params: param, observe: 'response' });
+        return this.http.get<any>(this.articleUrl, { params: param, observe: 'response' });
     }
 
     /**
@@ -63,42 +100,42 @@ export class BlogMainService {
      * @param id
      */
     getArticleByid(id): Observable<HttpResponse<any>> {
-        return this.http.get<any>(`${this.articleDetailUrl}/${id}`, {  observe: 'response' });
+        return this.http.get<any>(`${this.articleDetailUrl}/${id}`, { observe: 'response' });
     }
 
 
-     /**
-     * 参数
-     * 
-     */
+    /**
+    * 参数
+    * 
+    */
     queryOptions(): Observable<HttpResponse<any>> {
-        return this.http.get<any>(this.optionsUrl, {  observe: 'response' });
+        return this.http.get<any>(this.optionsUrl, { observe: 'response' });
     }
 
-    
 
-      /**
-     * 网站概况
-     * 
-     */
+
+    /**
+   * 网站概况
+   * 
+   */
     getSiteGk(): Observable<HttpResponse<any>> {
-        return this.http.get<any>(this.siteGkUrl, {  observe: 'response' });
+        return this.http.get<any>(this.siteGkUrl, { observe: 'response' });
     }
 
-    
-      /**
-     * 网站通知
-     * 
-     */
+
+    /**
+   * 网站通知
+   * 
+   */
     getNotice(): Observable<HttpResponse<any>> {
-        return this.http.get<any>(this.noticeUrl, {  observe: 'response' });
+        return this.http.get<any>(this.noticeUrl, { observe: 'response' });
     }
 
     /**
      * 获取评论
      */
     getCommonent(): Observable<HttpResponse<any>> {
-        return this.http.get<any>(this.conmmoentUrl, {  observe: 'response' });
+        return this.http.get<any>(this.conmmoentUrl, { observe: 'response' });
     }
-    
+
 }

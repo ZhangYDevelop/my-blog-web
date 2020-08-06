@@ -3,7 +3,7 @@ import { _HttpClient } from '@delon/theme';
 
 import { BlogMainService } from './blog-main.service';
 import { environment } from '@env/environment';
-import { Router } from '@angular/router';
+import {  ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-home',
@@ -30,6 +30,9 @@ export class BlogHomeComponent  implements OnInit {
    noticeStr = '';
 
    editorContent = '';
+
+   wd = ''; // 搜索关键字
+   categoryId = ''; // 分类ID
 
    ueditor_config = {
     toolbars: [
@@ -73,25 +76,19 @@ export class BlogHomeComponent  implements OnInit {
 
    
 
-constructor(private blogHomeIndexService: BlogMainService, private router: Router) {
-  // super();
+constructor(private blogHomeIndexService: BlogMainService, private router: ActivatedRoute) {
+  if (this.router.snapshot.queryParams['wd']) {
+    this.wd =  this.router.snapshot.queryParams['wd'];
+  }
+  if (this.router.snapshot.queryParams['categoryId']) {
+    this.categoryId =  this.router.snapshot.queryParams['categoryId'];
+  }
 }
 
   ngOnInit() {
 
-    // this.loading = this.ui.loading || '加载中……';
-    // this.configs = this.ui.config || {};
-    // this.delays = this.ui.delay || 300;
-
-    const param = { pageIndex: this.pageIndex, pageSize: this.pageSize };
-    this.blogHomeIndexService.queryArticleByPage(param).subscribe(res => {
-      this.articleList = res.body.list;
-      this.articleList.forEach(item => {
-          item.imgStr = environment.fileDownPath + '/thumbnail/random/img_' + item.articleId % 15 + '.jpg'
-      });
-
-      this.editorContent =  this.articleList[0].articleContent;
-    });
+    this.handlerArticleList();
+    
 
     this.blogHomeIndexService.queryOptions().subscribe(res => {
       this.options = res.body;
@@ -117,9 +114,30 @@ constructor(private blogHomeIndexService: BlogMainService, private router: Route
       
     });
   }
+
+
+  handlerArticleList() {
+   
+    if (this.wd || this.categoryId) {
+      const  param = { pageIndex: this.pageIndex, pageSize: this.pageSize , keywords: this.wd, categoryId: this.categoryId};
+      this.blogHomeIndexService.queryArticleByPageByKeyWd(param).subscribe(res => {
+        this.handlerArticleData(res.body.list);
+      });
+    } else {
+      const param = { pageIndex: this.pageIndex, pageSize: this.pageSize };
+      this.blogHomeIndexService.queryArticleByPage(param).subscribe(res => {
+        this.handlerArticleData(res.body.list);
+      });
+    } 
+  }
   
 
-
+  handlerArticleData(data) {
+    this.articleList = data;
+        this.articleList.forEach(item => {
+            item.imgStr = environment.fileDownPath + '/thumbnail/random/img_' + item.articleId % 15 + '.jpg'
+        });
+  }
 
   gitHubClick() {
      window.open(this.options.optionAboutsiteGithub)
@@ -138,6 +156,6 @@ constructor(private blogHomeIndexService: BlogMainService, private router: Route
    * @param item
    */
   titleClick(item: any) {
-      this.router.navigate(['/article/detail'], {queryParams: {articleId: item.articleId}});
+      window.open('/#/article/detail?articleId=' + item.articleId);
   }
 }
