@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "3705475",
+      "name": "热门",
+      "font_class": "remen",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "12095313",
+      "name": "随机",
+      "font_class": "suiji",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
       "icon_id": "6544504",
       "name": "喇叭",
       "font_class": "laba",

@@ -1,11 +1,11 @@
 <div style="padding: 0px 100px 0px 100px;">
-    <div  nzHoverable="false" nz-card-grid  [ngStyle]="{width: '60%'}" >
-        <div id = "articleContent">
+    <div  nzHoverable="false" nz-card-grid  [ngStyle]="{width: '60%'}" style="box-shadow: none;" >
+        <div style="background: white; padding: 24px;" id = "articleContent">
      
         </div>
      
      </div>
-     <div  nzHoverable="false" nz-card-grid [ngStyle]="{width: '40%'}">
+     <div  nzHoverable="false" nz-card-grid [ngStyle]="{width: '40%'}" style="box-shadow: none;">
          <nz-card style="width:100%;"  [nzTitle]="hotArticle">
              <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
                 <div *ngFor=" let item of hotArticleList; let i= index;">
@@ -16,8 +16,8 @@
            </nz-card>
            <ng-template #hotArticle>
              <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
-               <use xlink:href="#icon-pinglun"></use>
-             </svg><p style="margin-left: 30px; height: 5px;">热评文章</p>
+               <use xlink:href="#icon-remen"></use>
+             </svg><p style="margin-left: 30px; height: 5px;">今日推荐</p>
            </ng-template>
      
            <nz-card style="width:100%;"  [nzTitle]="randomArticle">
@@ -30,9 +30,10 @@
            </nz-card>
            <ng-template #randomArticle>
              <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
-               <use xlink:href="#icon-pinglun"></use>
+               <use xlink:href="#icon-suiji"></use>
              </svg><p style="margin-left: 30px; height: 5px;">随机文章</p>
            </ng-template>
+           
      </div>
      
 </div>

@@ -42,6 +42,8 @@ export class ArticleDetailComponent implements OnInit {
           this.blogHomeIndexService.addArticleView(this.articleId).subscribe(res=> {});
         }
     })
+
+    
   }
 
 
