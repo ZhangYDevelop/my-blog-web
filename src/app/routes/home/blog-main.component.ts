@@ -34,6 +34,8 @@ export class BlogHomeComponent  implements OnInit {
    wd = ''; // 搜索关键字
    categoryId = ''; // 分类ID
 
+   hotArticleList = []; // 热评文章
+
    ueditor_config = {
     toolbars: [
       [
@@ -112,6 +114,10 @@ constructor(private blogHomeIndexService: BlogMainService, private router: Activ
         this.commonentList = res.body;
       }
       
+    });
+
+    this.blogHomeIndexService.getHotCommonentArticle().subscribe(res => {
+      this.hotArticleList = res.body;
     });
   }
 
