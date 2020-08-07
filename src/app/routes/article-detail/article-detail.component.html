@@ -1,44 +1,160 @@
 <div style="padding: 0px 100px 0px 100px;">
-    <div  nzHoverable="false" nz-card-grid  [ngStyle]="{width: '60%'}" style="box-shadow: none;" >
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '60%'}" style="box-shadow: none;">
         <div style="background: white; padding: 24px;">
-            
-            <h2 style="text-align: center;"><strong>{{article.articleTitle}}</strong></h2>
-            <div  id = "articleContent">
-     
+         
+            <div nz-row>
+                <div nz-col style="width: 80%;">
+                    <h2 style="text-align: center;"><strong>{{article.articleTitle}}</strong></h2>
+                </div>
+               
+                <div  nz-col style="width: 20%;">
+                    <div style="float: right;">
+                        <svg class="icon svg-icon" aria-hidden="true" style="width: 20px;height:20px">
+                            <use xlink:href="#icon-liulan1"></use>
+                        </svg> &nbsp;&nbsp; {{article.articleViewCount}}&nbsp;&nbsp;
+                    </div>
+                    
+                </div>
+               
             </div>
-        </div>
-    
-     
-     </div>
-     <div  nzHoverable="false" nz-card-grid [ngStyle]="{width: '40%'}" style="box-shadow: none;">
-         <nz-card style="width:100%;"  [nzTitle]="hotArticle">
-             <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
-                <div *ngFor=" let item of hotArticleList; let i= index;">
-                 <strong>{{i + 1}}、</strong>
-                 <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
+        
+            <div  >
+                <div nz-row id="articleContent"></div>
+                <div nz-row  >
+                    <div  style="padding: 0px 100px 0px 100px;">
+                        
+                        <svg (click)="dianZan()" *ngIf="likeFlag" class="icon svg-icon" aria-hidden="true" style="width: 20px;height:20px;cursor: pointer;" >
+                            <use xlink:href="#icon-dianzan1"></use>
+                        </svg>
+                        <svg (click)="dianZan()" *ngIf="!likeFlag" class="icon svg-icon" aria-hidden="true" style="width: 20px;height:20px;cursor: pointer;" >
+                            <use xlink:href="#icon-zan"></use>
+                        </svg> &nbsp;&nbsp;{{article.articleLikeCount}}&nbsp;&nbsp;
+                        <nz-divider nzType="vertical" style="margin-top: 5px;"></nz-divider>
+                        <svg (click)="daShang()" class="icon svg-icon" aria-hidden="true" style="width: 30px;height:30px;cursor: pointer;">
+                            <use xlink:href="#icon-shang"></use>
+                        </svg>
+                        <nz-divider nzType="vertical" style="margin-top: 5px;"></nz-divider>
+                        <svg class="icon svg-icon" aria-hidden="true" style="width: 20px;height:20px;cursor: pointer;">
+                            <use xlink:href="#icon-pinglun1"></use>
+                        </svg> &nbsp;&nbsp;{{article.articleCommentCount}}
+                      
+                    </div>
                 </div>
-             </div>
-           </nz-card>
-           <ng-template #hotArticle>
-             <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
-               <use xlink:href="#icon-remen"></use>
-             </svg><p style="margin-left: 30px; height: 5px;">今日推荐</p>
-           </ng-template>
-     
-           <nz-card style="width:100%;"  [nzTitle]="randomArticle">
-             <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
-                <div *ngFor=" let item of randomArticleList; let i= index;">
-                   <strong>{{i + 1}}、</strong>
-                   <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
+            </div>
+            <!--评论区-->
+            <div >
+                <div nz-row style="margin-top: 10px;">
+                    <div nz-col style="width: 20%;"><strong>发表评论</strong></div>
                 </div>
-             </div>
-           </nz-card>
-           <ng-template #randomArticle>
-             <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
-               <use xlink:href="#icon-suiji"></use>
-             </svg><p style="margin-left: 30px; height: 5px;">随机文章</p>
-           </ng-template>
+                <div nz-row style="height: 80px;margin-top: 10px;">
+                    <textarea nz-input [(ngModel)]="componentContent"  [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                </div>
+               <div nz-row style="margin-top: 10px;">
+                   <div nz-col style="width: 10%;"><strong>昵称：</strong></div>
+                   <div nz-col style="width: 80%;">{{youkeName}}</div>
+               </div>
+               <div nz-row style="margin-top: 10px;">
+                    <button  nz-button  (click)="commitComponent()" nzType="primary">提交评论</button>
+               </div>
+            </div>
            
-     </div>
-     
+        </div>
+
+
+    </div>
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '40%'}" style="box-shadow: none;">
+        <nz-card style="width:100%;" [nzTitle]="hotArticle">
+            <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
+                <div *ngFor=" let item of hotArticleList; let i= index;">
+                    <strong>{{i + 1}}、</strong>
+                    <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
+                </div>
+            </div>
+        </nz-card>
+        <ng-template #hotArticle>
+            <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
+                <use xlink:href="#icon-remen"></use>
+            </svg>
+            <p style="margin-left: 30px; height: 5px;">今日推荐</p>
+        </ng-template>
+
+        <nz-card style="width:100%;" [nzTitle]="xiguangArticle">
+            <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
+                <div *ngFor=" let item of similarArticleList; let i= index;">
+                    <strong>{{i + 1}}、</strong>
+                    <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
+                </div>
+            </div>
+        </nz-card>
+        <ng-template #xiguangArticle>
+            <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
+                <use xlink:href="#icon-kafei1"></use>
+            </svg>
+            <p style="margin-left: 30px; height: 5px;">相关文章</p>
+        </ng-template>
+
+        <nz-card style="width:100%;" [nzTitle]="randomArticle">
+            <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
+                <div *ngFor=" let item of randomArticleList; let i= index;">
+                    <strong>{{i + 1}}、</strong>
+                    <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
+                </div>
+            </div>
+        </nz-card>
+        <ng-template #randomArticle>
+            <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
+                <use xlink:href="#icon-suiji"></use>
+            </svg>
+            <p style="margin-left: 30px; height: 5px;">随机文章</p>
+        </ng-template>
+
+    </div>
+
 </div>
+
+<nz-modal [(nzVisible)]="isVisible"  nzTitle="请选择打上方式"   nzFooter = "null"  (nzOnCancel)="nzOnCancel()"   nzWidth="350">
+    <nz-radio-group [(ngModel)]="radioValue" >
+        <label nz-radio nzValue="A">支付宝</label>
+        <label nz-radio nzValue="B">微信</label>
+      </nz-radio-group>
+      <div  *ngIf="radioValue==='A'" style="border-top-color: rgb(235, 95, 1);
+      border-top-style: solid;
+      border-top-width: 9.02px;
+      border-right-color: rgb(235, 95, 1);
+      border-right-style: solid;
+      border-right-width: 9.02px;
+      border-bottom-color: rgb(235, 95, 1);
+      border-bottom-style: solid;
+      border-bottom-width: 9.02px;
+      border-left-color: rgb(235, 95, 1);
+      border-left-style: solid;
+      border-left-width: 9.02px;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;">
+        <img src="assets/img/alipay.jpg" style="width: 280px;height: 260px;">
+      </div>
+
+      <div  *ngIf="radioValue==='B'" style="border-top-color: rgb(60, 175, 54);
+      border-top-style: solid;
+      border-top-width: 9.02px;
+      border-right-color: rgb(60, 175, 54);
+      border-right-style: solid;
+      border-right-width: 9.02px;
+      border-bottom-color: rgb(60, 175, 54);
+      border-bottom-style: solid;
+      border-bottom-width: 9.02px;
+      border-left-color: rgb(60, 175, 54);
+      border-left-style: solid;
+      border-left-width: 9.02px;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;">
+        <img src="assets/img/weixinpay.jpg" style="width: 280px;height: 260px;">
+      </div>
+   
+</nz-modal>

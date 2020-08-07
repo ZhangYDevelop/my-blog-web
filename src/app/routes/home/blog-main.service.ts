@@ -29,7 +29,19 @@ export class BlogMainService {
 
     private randomArticleUrl = '';
 
+    private likeUrl = '';
+
+    private similarArticleUrl = '';
+
+    private addComponentUrl = '';
+
     constructor(private http: HttpClient) {
+
+        this.addComponentUrl = environment.SERVER_URL + '/home/comment'
+
+        this.likeUrl = environment.SERVER_URL + '/home/article/like';
+
+        this.similarArticleUrl = environment.SERVER_URL + '/home/article/similarArticleList';
 
         this.randomArticleUrl = environment.SERVER_URL + '/home/article/randomArticleList';
 
@@ -49,8 +61,25 @@ export class BlogMainService {
 
         this.noticeUrl = environment.SERVER_URL + '/home/notice/listNotice';
 
-        this.conmmoentUrl = environment.SERVER_URL + '/home/comment/recentComment'
+        this.conmmoentUrl = environment.SERVER_URL + '/home/comment/recentComment';
 
+    }
+
+    
+      /**
+     * 提交评论
+     * 
+     */
+    addComponent(params): Observable<HttpResponse<any>> {
+        return this.http.post<any>(this.addComponentUrl, params, {  observe: 'response' });
+    }
+
+      /**
+     * 增加文章点赞数
+     * 
+     */
+    addArticleLikeNum(articleId, type): Observable<HttpResponse<any>> {
+        return this.http.get<any>(`${this.likeUrl}/${articleId}/${type}`, {  observe: 'response' });
     }
 
     
@@ -61,6 +90,17 @@ export class BlogMainService {
     getRandomArticle(): Observable<HttpResponse<any>> {
         return this.http.get<any>(this.randomArticleUrl, {  observe: 'response' });
     }
+
+    
+
+     /**
+     * 获取随机文章
+     * 
+     */
+    getSimilarArticleList(articleid): Observable<HttpResponse<any>> {
+        return this.http.get<any>(`${this.similarArticleUrl}/${articleid}`, {  observe: 'response' });
+    }
+
 
     /**
      * 获取热评文章

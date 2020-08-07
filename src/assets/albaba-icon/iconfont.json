@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "579291",
+      "name": "赏",
+      "font_class": "shang",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "3759635",
+      "name": "打赏",
+      "font_class": "dashang",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "15766678",
+      "name": "点赞",
+      "font_class": "dianzan1",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
       "icon_id": "3705475",
       "name": "热门",
       "font_class": "remen",
