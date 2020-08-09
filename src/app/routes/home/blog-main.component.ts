@@ -2,41 +2,43 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 
 import { BlogMainService } from './blog-main.service';
+
 import { environment } from '@env/environment';
-import {  ActivatedRoute } from '@angular/router';
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-home',
   templateUrl: './blog-main.component.html'
 })
-export class BlogHomeComponent  implements OnInit {
+export class BlogHomeComponent implements OnInit {
 
-   articleList = [];
+  articleList = [];
 
-   pageSize = 0;
+  pageSize = 0;
 
-   pageIndex = 8;
+  pageIndex = 8;
 
-   options: any = {}; // 网站基本信息
+  options: any = {}; // 网站基本信息
 
-   isVisible = false;
+  isVisible = false;
 
-   siteGk = [];
+  siteGk = [];
 
-   noticeList = [];
+  noticeList = [];
 
-   commonentList = [];
+  commonentList = [];
 
-   noticeStr = '';
+  noticeStr = '';
 
-   editorContent = '';
+  editorContent = '';
 
-   wd = ''; // 搜索关键字
-   categoryId = ''; // 分类ID
+  wd = ''; // 搜索关键字
+  categoryId = ''; // 分类ID
 
-   hotArticleList = []; // 热评文章
+  hotArticleList = []; // 热评文章
 
-   ueditor_config = {
+  ueditor_config = {
     toolbars: [
       [
         'FullScreen', // 全屏
@@ -48,7 +50,7 @@ export class BlogHomeComponent  implements OnInit {
         'backcolor',  // 背景色
         'fontfamily', // 字体
         'fontsize', // 字号
-        'insertcode',// 代码语言
+        'insertcode', // 代码语言
         '|',
         'insertorderedlist',  // 有序列表
         'insertunorderedlist',  // 无序列表
@@ -76,44 +78,44 @@ export class BlogHomeComponent  implements OnInit {
     autoHeightEnabled: true, // 自动高度
   };
 
-   
 
-constructor(private blogHomeIndexService: BlogMainService, private router: ActivatedRoute) {
-  if (this.router.snapshot.queryParams['wd']) {
-    this.wd =  this.router.snapshot.queryParams['wd'];
+
+  constructor(private blogHomeIndexService: BlogMainService, private router: ActivatedRoute) {
+    if (this.router.snapshot.queryParams.wd) {
+      this.wd = this.router.snapshot.queryParams.wd;
+    }
+    if (this.router.snapshot.queryParams.categoryId) {
+      this.categoryId = this.router.snapshot.queryParams.categoryId;
+    }
   }
-  if (this.router.snapshot.queryParams['categoryId']) {
-    this.categoryId =  this.router.snapshot.queryParams['categoryId'];
-  }
-}
 
   ngOnInit() {
 
     this.handlerArticleList();
-    
+
 
     this.blogHomeIndexService.queryOptions().subscribe(res => {
       this.options = res.body;
       if (this.options) {
-        this.options.optionAboutsiteAvatar = environment.fileDownPath + this.options.optionAboutsiteAvatar  
+        this.options.optionAboutsiteAvatar = environment.fileDownPath + this.options.optionAboutsiteAvatar;
         this.options.optionAboutsiteWechat = environment.fileDownPath + this.options.optionAboutsiteWechat;
       }
-     
-    })
+
+    });
 
     this.blogHomeIndexService.getSiteGk().subscribe(res => {
-        this.siteGk = res.body;
+      this.siteGk = res.body;
     });
 
     this.blogHomeIndexService.getNotice().subscribe(res => {
-        this.noticeList = res.body;
+      this.noticeList = res.body;
     });
 
     this.blogHomeIndexService.getCommonent().subscribe(res => {
       if (res.body) {
         this.commonentList = res.body;
       }
-      
+
     });
 
     this.blogHomeIndexService.getHotCommonentArticle().subscribe(res => {
@@ -123,9 +125,9 @@ constructor(private blogHomeIndexService: BlogMainService, private router: Activ
 
 
   handlerArticleList() {
-   
+
     if (this.wd || this.categoryId) {
-      const  param = { pageIndex: this.pageIndex, pageSize: this.pageSize , keywords: this.wd, categoryId: this.categoryId};
+      const param = { pageIndex: this.pageIndex, pageSize: this.pageSize, keywords: this.wd, categoryId: this.categoryId };
       this.blogHomeIndexService.queryArticleByPageByKeyWd(param).subscribe(res => {
         this.handlerArticleData(res.body.list);
       });
@@ -134,19 +136,19 @@ constructor(private blogHomeIndexService: BlogMainService, private router: Activ
       this.blogHomeIndexService.queryArticleByPage(param).subscribe(res => {
         this.handlerArticleData(res.body.list);
       });
-    } 
+    }
   }
-  
+
 
   handlerArticleData(data) {
     this.articleList = data;
-        this.articleList.forEach(item => {
-            item.imgStr = environment.fileDownPath + '/thumbnail/random/img_' + item.articleId % 15 + '.jpg'
-        });
+    this.articleList.forEach(item => {
+      item.imgStr = environment.fileDownPath + '/thumbnail/random/img_' + item.articleId % 15 + '.jpg';
+    });
   }
 
   gitHubClick() {
-     window.open(this.options.optionAboutsiteGithub)
+    window.open(this.options.optionAboutsiteGithub);
   }
 
   weixinClick() {
@@ -159,9 +161,8 @@ constructor(private blogHomeIndexService: BlogMainService, private router: Activ
 
   /**
    * 标题点击
-   * @param item
    */
   titleClick(item: any) {
-      window.open('/#/article/detail?articleId=' + item.articleId);
+    window.open('/#/article/detail?articleId=' + item.articleId);
   }
 }

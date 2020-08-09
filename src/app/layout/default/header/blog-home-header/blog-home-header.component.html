@@ -7,12 +7,12 @@
   </div>
 
   <div style="width: 40%; height: 68px;margin: 20px 0px 0px 40px;float: left;">
-    <ul nz-menu nzMode="horizontal"  nzTheme="light" style="height: 60px;">
+    <ul nz-menu nzMode="horizontal" nzTheme="light" style="height: 60px;">
       <div *ngFor="let item of categoryList;" style="float: left;">
-        <li  nz-submenu nzTitle="{{item.categoryName}}" nzIcon="{{item.categoryIcon}}">
+        <li nz-submenu nzTitle="{{item.categoryName}}" nzIcon="{{item.categoryIcon}}">
           <ul>
             <div *ngFor="let item2 of item.child">
-              <li style="cursor: pointer;" (click)="menuClick(item2)" nz-menu-item > {{item2.categoryName}}
+              <li style="cursor: pointer;" (click)="menuClick(item2)" nz-menu-item> {{item2.categoryName}}
               </li>
             </div>
           </ul>
@@ -24,10 +24,10 @@
 
   <div style="width: 20%;margin: 25px 0px 0px 40px;float: left;">
     <nz-input-group [nzSuffix]="suffixIconSearch">
-      <input type="text" [(ngModel)]="searchWord" nz-input placeholder="搜微博客"   (keydown)="keyDown($event)"/>
+      <input type="text" [(ngModel)]="searchWord" nz-input placeholder="搜微博客" (keydown)="keyDown($event)" />
     </nz-input-group>
     <ng-template #suffixIconSearch>
-      <i style="cursor: pointer;" (click)="search()" nz-icon nzType="search"></i>
+      <i style="cursor: pointer;" (click)="search('')" nz-icon nzType="search"></i>
     </ng-template>
   </div>
 

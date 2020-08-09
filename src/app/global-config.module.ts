@@ -12,7 +12,7 @@ import { DelonACLModule } from '@delon/acl';
 const alainConfig: AlainConfig = {
   st: { modal: { size: 'lg' } },
   pageHeader: { homeI18n: 'home' },
-  auth: { login_url: '/passport/login', ignores: [/\/login/, /assets\//, /passport\//, /\/blog/, /home\//,/\/article/], token_send_key: 'authorization' },
+  auth: { login_url: '/passport/login', ignores: [/\/login/, /assets\//, /passport\//, /\/blog/, /home\//, /\/article/], token_send_key: 'authorization' },
 };
 
 const alainModules = [AlainThemeModule.forRoot(), DelonACLModule.forRoot(), DelonMockModule.forRoot()];

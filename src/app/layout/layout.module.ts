@@ -28,6 +28,7 @@ const COMPONENTS = [
   SidebarComponent,
   ...SETTINGDRAWER,
   LayoutThemeBtnComponent,
+  FootComponent
 ];
 
 const HEADERCOMPONENTS = [
@@ -47,6 +48,8 @@ import { LayoutPassportComponent } from './passport/passport.component';
 import { BlogHomeLayoutComponent } from './default/header/blog-home/bloghome-layout.component';
 
 import { BlogHomeLayoutHeaderComponent } from './default/header/blog-home-header/blog-home-header.component';
+
+import { FootComponent } from './default/foot/foot.component';
 const PASSPORT = [LayoutPassportComponent];
 
 @NgModule({

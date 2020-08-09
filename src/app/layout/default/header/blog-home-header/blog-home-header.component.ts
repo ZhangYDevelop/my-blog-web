@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { App, SettingsService } from '@delon/theme';
 
-import { Router, ActivatedRoute } from '@angular/router';
 import { BlogHomeService } from './blog-home.service';
-import { NzIconService } from 'ng-zorro-antd/icon';
+
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-home-layout-header',
@@ -30,8 +30,9 @@ export class BlogHomeLayoutHeaderComponent implements OnInit {
 
   constructor(private settings: SettingsService, private blogHomeService: BlogHomeService,
     private router: Router, private router2: ActivatedRoute) {
-    if (this.router2.snapshot.queryParams['wd']) {
-      this.searchWord = this.router2.snapshot.queryParams['wd'];
+
+    if (this.router2.snapshot.queryParams.wd) {
+      this.searchWord = this.router2.snapshot.queryParams.wd;
     }
   }
   ngOnInit(): void {
@@ -76,15 +77,14 @@ export class BlogHomeLayoutHeaderComponent implements OnInit {
   }
 
   keyDown(e) {
-    var evt = window.event || e;
-    if (evt.keyCode == 13) {
+    const evt = window.event || e;
+    if (evt.keyCode === 13) {
       this.search('/#/blog?wd=' + this.searchWord);
     }
   }
 
   /**
    * 菜单点击
-   * @param item  
    */
   menuClick(item) {
     this.searchWord = item.categoryId;
@@ -92,6 +92,6 @@ export class BlogHomeLayoutHeaderComponent implements OnInit {
   }
 
   routeClick() {
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/');
   }
 }

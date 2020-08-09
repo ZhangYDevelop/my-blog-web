@@ -1,7 +1,8 @@
-<div  style=" width: 100%; padding: 0px 100px 0px 100px; ">
+<div style=" width: 100%; padding: 0px 100px 0px 100px; ">
   <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '65%',padding: '15px' }" style="box-shadow: none;">
     <div *ngFor=" let item of articleList">
-      <nz-card style="width: 100%; padding: 10px 30px 0px 30px;" [nzBordered]="false" [nzTitle]="titleTemplate" [nzExtra]="extraTemplate">
+      <nz-card style="width: 100%; padding: 10px 30px 0px 30px;" [nzBordered]="false" [nzTitle]="titleTemplate"
+        [nzExtra]="extraTemplate">
         <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '30%', height: '200px'}" style="box-shadow: none;">
 
           <img style="width: 100%;height: 100%;" src="{{item.imgStr}}" />
@@ -16,7 +17,7 @@
         </div>
       </nz-card>
       <ng-template #titleTemplate>
-        <a href="javascript:void(0)" (click)="titleClick(item)" style="color: black;">{{item.articleTitle}}</a> 
+        <a href="javascript:void(0)" (click)="titleClick(item)" style="color: black;">{{item.articleTitle}}</a>
       </ng-template>
       <ng-template #extraTemplate>
         <div nz-row style="margin-right: 100px;">
@@ -35,12 +36,12 @@
       </ng-template>
     </div>
     <div style="text-align: center;" *ngIf="articleList.length <= 0">
-         未搜索到相关内容，换个试试吧！
+      未搜索到相关内容，换个试试吧！
     </div>
   </div>
   <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '35%' ,padding: '15px'}" style="box-shadow: none;">
-    <div >
-      <nz-card style="width:100% ; padding: 10px 10px 0px 0p;" [nzTitle]="aboutSite"  [nzExtra]="extraAboutSite">
+    <div>
+      <nz-card style="width:100% ; padding: 10px 10px 0px 0p;" [nzTitle]="aboutSite" [nzExtra]="extraAboutSite">
         <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '40%', height: '160px' , padding: '10px'}">
           <img style="width: 100%;height: 100%;" src="{{options.optionAboutsiteAvatar}}" />
         </div>
@@ -48,74 +49,77 @@
           <h2>{{options.optionAboutsiteTitle}}</h2>
           <p>{{options.optionAboutsiteContent}}</p>
         </div>
-        <div nz-card-grid nzHoverable="false"   [ngStyle]="{width: '100%', height: '40px', padding: '0px'}">
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%', height: '40px', padding: '0px'}">
           <div style="margin-top: 5px;text-align: center;">
-            <svg  (click) = "weixinClick()" class="icon svg-icon" style=" cursor: pointer;width: 25px; height: 25px;" aria-hidden="true">
+            <svg (click)="weixinClick()" class="icon svg-icon" style=" cursor: pointer;width: 25px; height: 25px;"
+              aria-hidden="true">
               <use xlink:href="#icon-weixin"></use>
             </svg>
-            <svg class="icon svg-icon"  (click) = "gitHubClick()"  style="cursor: pointer;width: 25px; height: 25px;margin-left: 20px;" aria-hidden="true">
+            <svg class="icon svg-icon" (click)="gitHubClick()"
+              style="cursor: pointer;width: 25px; height: 25px;margin-left: 20px;" aria-hidden="true">
               <use xlink:href="#icon-GitHub"></use>
             </svg>
           </div>
-         
+
         </div>
       </nz-card>
-      <ng-template #extraAboutSite >
-        <div nz-row style="width:200px;" >
+      <ng-template #extraAboutSite>
+        <div nz-row style="width:200px;">
           <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
-            <use xlink:href="#icon-laba"></use> 
-          </svg> 
+            <use xlink:href="#icon-laba"></use>
+          </svg>
           <nz-carousel nzAutoPlay style="width: 160px; height: 30px; margin-left: 10px;">
             <div nz-carousel-content *ngFor="let index of noticeList">
-             <!-- {{ index.noticeTitle.length > 9 ? index.noticeTitle.substring(0, 9) + ' ...'  : index.noticeTitle }} -->
-             {{ index.noticeTitle}}
+              <!-- {{ index.noticeTitle.length > 9 ? index.noticeTitle.substring(0, 9) + ' ...'  : index.noticeTitle }} -->
+              {{ index.noticeTitle}}
             </div>
           </nz-carousel>
         </div>
       </ng-template>
       <ng-template #aboutSite>
-          <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
-            <use xlink:href="#icon-web"></use>
-          </svg><p style="margin-left: 30px; height: 5px;">关于本站</p>
+        <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
+          <use xlink:href="#icon-web"></use>
+        </svg>
+        <p style="margin-left: 30px; height: 5px;">关于本站</p>
       </ng-template>
 
 
-      <nz-card style="width:100%;"  [nzTitle]="siteGaikuang">
+      <nz-card style="width:100%;" [nzTitle]="siteGaikuang">
         <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%', height: '200px'}">
           <div nz-row>
-           
+
             <svg class="icon svg-icon" style=" width: 20px; height: 20px;" aria-hidden="true">
               <use xlink:href="#icon-icon_A"></use>
             </svg>
             <h4 style="margin-left: 15px;">文章总数：{{  siteGk.length > 0 ? siteGk[0] + '篇' : 0  + '篇'}}</h4>
           </div>
-          <div nz-row >
-           
+          <div nz-row>
+
             <svg class="icon svg-icon" style=" width: 20px; height: 20px;" aria-hidden="true">
               <use xlink:href="#icon-liuyan"></use>
             </svg>
             <h4 style="margin-left: 15px;">留言数量：{{  siteGk.length > 0 ? siteGk[1] + '条' : 0  + '条'}}</h4>
           </div>
-          <div nz-row >
-          
+          <div nz-row>
+
             <svg class="icon svg-icon" style=" width: 20px; height: 20px;" aria-hidden="true">
               <use xlink:href="#icon-fenlei"></use>
             </svg>
             <h4 style="margin-left: 15px;">分类数量：{{  siteGk.length > 0 ? siteGk[2] + '个' : 0  + '个'}}</h4>
           </div>
-          <div nz-row >
+          <div nz-row>
             <svg class="icon svg-icon" style=" width: 20px; height: 20px;" aria-hidden="true">
               <use xlink:href="#icon-biaoqian"></use>
             </svg>
             <h4 style="margin-left: 15px;">标签总数：{{  siteGk.length > 0 ? siteGk[3] + '个' : 0  + '个'}}</h4>
           </div>
-          <div nz-row >
+          <div nz-row>
             <svg class="icon svg-icon" style=" width: 20px; height: 20px;" aria-hidden="true">
               <use xlink:href="#icon-liulan"></use>
             </svg>
             <h4 style="margin-left: 15px;"> 浏览总量：{{  siteGk.length > 0 ? siteGk[4] + '次' : 0  + '次'}}</h4>
           </div>
-          <div nz-row >
+          <div nz-row>
             <svg class="icon svg-icon" style=" width: 20px; height: 20px;" aria-hidden="true">
               <use xlink:href="#icon-gengxin"></use>
             </svg>
@@ -126,37 +130,40 @@
       <ng-template #siteGaikuang>
         <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
           <use xlink:href="#icon-gaikuangguanli"></use>
-        </svg><p style="margin-left: 30px; height: 5px;">网站概况</p>
+        </svg>
+        <p style="margin-left: 30px; height: 5px;">网站概况</p>
       </ng-template>
 
-      <nz-card style="width:100%;"  [nzTitle]="hotArticle">
+      <nz-card style="width:100%;" [nzTitle]="hotArticle">
         <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
-           <div *ngFor=" let item of hotArticleList; let i= index;">
+          <div *ngFor=" let item of hotArticleList; let i= index;">
             <strong>{{i + 1}}、</strong>
-            <a href="javascript:void(0)" (click)="articleTitleClick(item)"> {{item.articleTitle}}</a>
-           </div>
+            <a href="javascript:void(0)" (click)="titleClick(item)"> {{item.articleTitle}}</a>
+          </div>
         </div>
       </nz-card>
       <ng-template #hotArticle>
         <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
           <use xlink:href="#icon-remen"></use>
-        </svg><p style="margin-left: 30px; height: 5px;">今日推荐</p>
+        </svg>
+        <p style="margin-left: 30px; height: 5px;">今日推荐</p>
       </ng-template>
 
-      <nz-card style="width:100%;"  [nzTitle]="latestCommon">
+      <nz-card style="width:100%;" [nzTitle]="latestCommon">
         <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
-           <div *ngFor=" let item of commonentList">
-             <span class="comment_author">
+          <div *ngFor=" let item of commonentList">
+            <span class="comment_author">
               <strong>{{item.commentAuthorName}}</strong>
-             </span>
-              {{item.commentContent}}
-           </div>
+            </span>
+            {{item.commentContent}}
+          </div>
         </div>
       </nz-card>
       <ng-template #latestCommon>
         <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
           <use xlink:href="#icon-pinglun"></use>
-        </svg><p style="margin-left: 30px; height: 5px;">最近评论</p>
+        </svg>
+        <p style="margin-left: 30px; height: 5px;">最近评论</p>
       </ng-template>
     </div>
   </div>
@@ -168,6 +175,6 @@
 
 <!-- <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script> -->
 
-<nz-modal [(nzVisible)]="isVisible"  nzTitle="欢迎加微信交流"   nzFooter = "null"  (nzOnCancel)="nzOnCancel()"   nzWidth="350">
-     <img src="{{options.optionAboutsiteWechat}}" style="width: 300px;height: 260px;">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="欢迎加微信交流" nzFooter="null" (nzOnCancel)="nzOnCancel()" nzWidth="350">
+  <img src="{{options.optionAboutsiteWechat}}" style="width: 300px;height: 260px;">
 </nz-modal>

@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  SERVER_URL: `http://localhost:8080`,
+  SERVER_URL: `http://localhost:8080/blog`,
   production: false,
   useHash: true,
   fileDownPath: 'http://81.70.31.159/blog/uploads'

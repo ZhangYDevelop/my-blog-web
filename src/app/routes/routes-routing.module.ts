@@ -22,6 +22,7 @@ import { UserRegisterComponent } from './passport/register/register.component';
 
 import { BlogHomeLayoutComponent } from '../layout/default/header/blog-home/bloghome-layout.component';
 import { BlogHomeComponent } from './home/blog-main.component';
+
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 
 
@@ -66,7 +67,7 @@ const routes: Routes = [
       },
     ]
   },
-   // 博客详情
+  // 博客详情
   {
     path: 'article',
     component: BlogHomeLayoutComponent,
