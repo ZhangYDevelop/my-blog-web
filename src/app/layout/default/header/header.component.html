@@ -1,71 +1,42 @@
-<div class="alain-default__header-logo">
-  <a [routerLink]="['/']" class="alain-default__header-logo-link">
-    <img class="alain-default__header-logo-expanded" src="./assets/logo-full.svg" [attr.alt]="app.name" style="max-height: 40px;" />
-    <img class="alain-default__header-logo-collapsed" src="./assets/logo.svg" [attr.alt]="app.name" style="max-height: 30px;" />
-  </a>
-</div>
-<div class="alain-default__nav-wrap">
-  <ul class="alain-default__nav">
-    <!-- Menu -->
-    <li>
-      <div class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
-        <i nz-icon nzType="menu-{{ collapsed ? 'unfold' : 'fold' }}"></i>
-      </div>
-    </li>
-    <!-- Github Page -->
-    <li>
-      <a class="alain-default__nav-item" href="//github.com/ng-alain/ng-alain" target="_blank">
-        <i nz-icon nzType="github"></i>
-      </a>
-    </li>
-    <!-- Lock Page -->
-    <li class="hidden-mobile">
-      <div class="alain-default__nav-item" routerLink="/passport/lock">
-        <i nz-icon nzType="lock"></i>
-      </div>
-    </li>
-    <!-- Search Button -->
-    <li class="hidden-pc" (click)="searchToggleChange()">
-      <div class="alain-default__nav-item">
-        <i nz-icon nzType="search"></i>
-      </div>
-    </li>
-  </ul>
-  <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search>
-  <ul class="alain-default__nav">
-    <!-- Notify -->
-    <li>
-      <header-notify></header-notify>
-    </li>
-    <!-- Task -->
-    <li class="hidden-mobile">
-      <header-task></header-task>
-    </li>
-    <!-- App Icons -->
-    <li class="hidden-mobile">
-      <header-icon></header-icon>
-    </li>
-    <!-- Settings -->
-    <li class="hidden-mobile">
-      <div class="alain-default__nav-item" nz-dropdown [nzDropdownMenu]="settingsMenu" nzTrigger="click" nzPlacement="bottomRight">
-        <i nz-icon nzType="setting"></i>
-      </div>
-      <nz-dropdown-menu #settingsMenu="nzDropdownMenu">
-        <div nz-menu style="width: 200px;">
-          <div nz-menu-item>
-            <header-fullscreen></header-fullscreen>
-          </div>
-          <div nz-menu-item>
-            <header-storage></header-storage>
-          </div>
-          <div nz-menu-item>
-            <header-i18n></header-i18n>
-          </div>
-        </div>
-      </nz-dropdown-menu>
-    </li>
-    <li class="hidden-mobile">
-      <header-user></header-user>
-    </li>
-  </ul>
+<div style="padding: 0px 100px 0px 100px; width: 100%; height: 80px;">
+  <div style="float: left;">
+    <a (click)="routeClick()">
+      <h1 style="margin: 0px;">微博客</h1>
+      <div style="color: black;">搬砖小宇哥</div>
+    </a>
+  </div>
+
+  <div style="float: left;width: 50%;padding: 20px 100px 0px 100px;">
+    <ul nz-menu nzMode="horizontal" nzTheme="light" style="height: 60px;">
+
+      <li nz-submenu nzTitle="文章管理" nzIcon="bars">
+        <ul>
+          <li style="cursor: pointer;" nz-menu-item> 文章列表</li>
+          <li style="cursor: pointer;" nz-menu-item> 发布文章</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="分类管理" nzIcon="bars">
+        <ul>
+          <li style="cursor: pointer;" nz-menu-item> 文章列表</li>
+          <li style="cursor: pointer;" nz-menu-item> 发布文章</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="标签管理" nzIcon="bars">
+        <ul>
+          <li style="cursor: pointer;" nz-menu-item> 文章列表</li>
+          <li style="cursor: pointer;" nz-menu-item> 发布文章</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="用户管理" nzIcon="bars">
+        <ul>
+          <li style="cursor: pointer;" nz-menu-item> 文章列表</li>
+          <li style="cursor: pointer;" nz-menu-item> 发布文章</li>
+        </ul>
+      </li>
+    </ul>
+
+  </div>
+  <div style="padding: 20px;">
+    <header-user></header-user>
+  </div>
 </div>

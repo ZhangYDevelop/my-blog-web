@@ -1,8 +1,14 @@
-<div class="alain-default__progress-bar" *ngIf="isFetching"></div>
-<layout-header class="alain-default__header"></layout-header>
-<!-- <layout-sidebar class="alain-default__aside"></layout-sidebar> -->
-<section>
-  <router-outlet></router-outlet>
-</section>
-<ng-template #settingHost></ng-template>
-<layout-theme-btn></layout-theme-btn>
+<div>
+  <layout-header class="alain-default__header"
+    style="position: relative;background-color: white;height: 80px;padding: 0px;"></layout-header>
+  <!-- <layout-sidebar class="alain-default__aside"></layout-sidebar> -->
+  <section>
+    <router-outlet></router-outlet>
+  </section>
+</div>
+
+
+
+<div nz-row style="height: 50px;margin-top: 20px;">
+  <app-component-foot style="width: 100%;"></app-component-foot>
+</div>

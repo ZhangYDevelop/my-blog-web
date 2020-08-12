@@ -4,23 +4,23 @@ import { SharedModule } from '@shared';
 import { CallbackComponent } from './callback/callback.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { DashboardMonitorComponent } from './dashboard/monitor/monitor.component';
-// dashboard pages
-import { DashboardV1Component } from './dashboard/v1/v1.component';
 import { DashboardWorkplaceComponent } from './dashboard/workplace/workplace.component';
-// single pages
 import { UserLockComponent } from './passport/lock/lock.component';
-// passport pages
 import { UserLoginComponent } from './passport/login/login.component';
 import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
 import { UserRegisterComponent } from './passport/register/register.component';
 import { RouteRoutingModule } from './routes-routing.module';
 
 import { BlogHomeComponent } from './home/blog-main.component';
-import { BlogHomeLayoutComponent } from '../layout/default/header/blog-home/bloghome-layout.component';
+
+import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
+
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { ArticleEditComponent } from './article-edit/article-edit.component';
+
 
 const COMPONENTS = [
-  DashboardV1Component,
+  AdminDashboardComponent,
   DashboardAnalysisComponent,
   DashboardMonitorComponent,
   DashboardWorkplaceComponent,
@@ -32,7 +32,8 @@ const COMPONENTS = [
   UserLockComponent,
   CallbackComponent,
   BlogHomeComponent,
-  ArticleDetailComponent
+  ArticleDetailComponent,
+  ArticleEditComponent
 ];
 const COMPONENTS_NOROUNT = [];
 

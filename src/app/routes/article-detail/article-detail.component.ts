@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ACLService } from '@delon/acl';
 import { MenuService } from '@delon/theme';
-import { Route, ActivatedRoute } from '@angular/router';
+
+
 import { BlogMainService } from '../home/blog-main.service';
 
-import * as $ from 'jquery'
+import * as $ from 'jquery';
 import { NzMessageService } from 'ng-zorro-antd/message';
+
+import { ActivatedRoute } from '@angular/router';
+import { UEditorComponent } from 'ngx-ueditor';
 
 
 @Component({
@@ -32,8 +36,10 @@ export class ArticleDetailComponent implements OnInit {
 
   similarArticleList = []; // 相关文章
 
+  @ViewChild('editor') editor: UEditorComponent; // 编辑器
+
   constructor(private blogHomeIndexService: BlogMainService, private router: ActivatedRoute, private msg: NzMessageService) {
-    this.articleId = this.router.snapshot.queryParams['articleId'];
+    this.articleId = this.router.snapshot.queryParams.articleId;
 
     this.youkeName = this.youkeName + Number((Math.random() * 100000000000).toFixed(0));
   }
@@ -47,21 +53,23 @@ export class ArticleDetailComponent implements OnInit {
       this.randomArticleList = res.body;
     });
 
-   
+
 
     this.blogHomeIndexService.getArticleByid(this.articleId).subscribe(res => {
       if (res.body) {
         this.article = res.body;
-        $('#articleContent').append(this.article.articleContent);
-        // 增加浏览数量
-        this.blogHomeIndexService.addArticleView(this.articleId).subscribe(res => { });
+        document.getElementById('content').innerHTML = this.article.articleContent;
 
+        // 增加浏览数量
+        this.blogHomeIndexService.addArticleView(this.articleId).subscribe(() => { });
+
+        // tslint:disable-next-line:no-shadowed-variable
         this.blogHomeIndexService.getSimilarArticleList(this.articleId).subscribe(res => {
           this.similarArticleList = res.body;
         });
-    
+
       }
-    })
+    });
 
 
   }
@@ -69,7 +77,6 @@ export class ArticleDetailComponent implements OnInit {
 
   /**
    * 标题点击
-   * @param item
    */
   articleTitleClick(item: any) {
     window.open('/#/article/detail?articleId=' + item.articleId);
@@ -82,14 +89,16 @@ export class ArticleDetailComponent implements OnInit {
     this.likeFlag = !this.likeFlag;
     if (this.likeFlag) {
       this.blogHomeIndexService.addArticleLikeNum(this.article.articleId, 1).subscribe(res => {
-        this.article.articleLikeCount = parseInt( res.body);
-      })
+        // tslint:disable-next-line:radix
+        this.article.articleLikeCount = parseInt(res.body);
+      });
     } else {
       this.blogHomeIndexService.addArticleLikeNum(this.article.articleId, 0).subscribe(res => {
-        this.article.articleLikeCount = parseInt( res.body);
-      })
+        // tslint:disable-next-line:radix
+        this.article.articleLikeCount = parseInt(res.body);
+      });
     }
-  
+
   }
 
   daShang() {
@@ -105,12 +114,12 @@ export class ArticleDetailComponent implements OnInit {
    */
   commitComponent() {
 
-     const  params = {commentContent: this.componentContent, commentArticleId: this.articleId, commentAuthorName: this.youkeName};
+    const params = { commentContent: this.componentContent, commentArticleId: this.articleId, commentAuthorName: this.youkeName };
 
-     this.blogHomeIndexService.addComponent(params).subscribe(res => {
-        if (res.body) {
-            this.msg.info('评论成功');
-        }
-     });
+    this.blogHomeIndexService.addComponent(params).subscribe(res => {
+      if (res.body) {
+        this.msg.info('评论成功');
+      }
+    });
   }
 }
