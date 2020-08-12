@@ -1,0 +1,50 @@
+<div style="width: 100%;padding: 20px 100px 0px 100px;">
+  <nz-card [nzBordered]="false" nzTitle="文章列表">
+    <div nz-card-grid [ngStyle]="{width: '80%',padding: '15px' }" style="box-shadow: none;">
+
+      <nz-table style="padding:0" #nzTable nzShowPagination="true" (nzPageIndexChange)="getArtileList()"
+        [nzNoResult]="noResultMessage2" [nzData]="dataSource" nzSize="small" [nzTotal]="total"
+        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize">
+        <thead>
+          <tr>
+            <th width="20%">标题</th>
+            <th width="20%">浏览数</th>
+            <th width="10%">点赞数</th>
+            <th width="15%">评论数</th>
+            <th width="15%">创建时间</th>
+            <th width="15%">明细</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataSource">
+
+            <td (click)="rowClick(data)" style="cursor: pointer;">
+              {{data.articleTitle}}
+            </td>
+            <td class="tabthtd">{{data.articleViewCount}}</td>
+            <td class="tabthtd">{{data.articleLikeCount}}</td>
+            <td class="tabthtd">{{data.articleLikeCount}}</td>
+            <td class="tabthtd">{{data.articleCreateTime | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+            <td>
+              <a href="javascript:void(0);" title="编辑" (click)="rowClick(data)">
+                编辑
+              </a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a href="javascript:void(0);" title="删除">
+                删除
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <ng-template #noResultMessage2>
+          <div style="margin-top: 40px">
+            <img src='assets/img/noResultImage.png' />
+          </div>
+          <div style="margin-top: 20px">
+            <span style="font-size:20px;color:black;">暂无数据</span>
+          </div>
+        </ng-template>
+      </nz-table>
+    </div>
+  </nz-card>
+</div>
