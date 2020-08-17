@@ -49,7 +49,8 @@ export class ArticleEditComponent implements OnInit {
         'unlink', // 取消链接
         'inserttable', // 插入表格
         '|',
-        'simpleupload', // 单图上传
+        // 'simpleupload', // 单图上传
+        'insertimage'
       ]
     ],
     autoClearinitialContent: true,  // 自动清除初始内容

@@ -114,7 +114,7 @@ import { UEditorModule } from 'ngx-ueditor';
         // `//apps.bdimg.com/libs/ueditor/1.4.3.1/ueditor.config.js`,
         // `//apps.bdimg.com/libs/ueditor/1.4.3.1/ueditor.all.min.js`,
         // 本地路径
-        `./assets/ueditor/ueditor.all.min.js`,
+        `./assets/ueditor/ueditor.all.js`,
         `./assets/ueditor/ueditor.config.js`
       ],
       options: {

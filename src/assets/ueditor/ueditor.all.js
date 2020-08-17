@@ -8087,10 +8087,11 @@ UE.Editor.defaultOptions = function(editor){
 
                 configUrl && UE.ajax.request(configUrl,{
                     'method': 'GET',
-                    'dataType': isJsonp ? 'jsonp':'',
+                    'dataType': isJsonp ? 'json':'',
                     'onsuccess':function(r){
                         try {
-                            var config = isJsonp ? r:eval("("+r.responseText+")");
+                            // var config = isJsonp ? r:eval("("+r.responseText+")");
+                            var config = JSON.parse( r.responseText);
                             utils.extend(me.options, config);
                             me.fireEvent('serverConfigLoaded');
                             me._serverConfigLoaded = true;
@@ -24516,6 +24517,7 @@ UE.plugin.register('simpleupload', function (){
                 me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme +'/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
 
                 function callback(){
+                    debugger
                     try{
                         var link, json, loader,
                             body = (iframe.contentDocument || iframe.contentWindow.document).body,
