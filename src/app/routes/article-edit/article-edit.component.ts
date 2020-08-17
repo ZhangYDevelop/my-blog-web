@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UEditorComponent } from 'ngx-ueditor';
 import { ArticleEditService } from './article-edit.service';
 
+import { ControlWidget } from '@delon/form';
+
 
 @Component({
   selector: 'app-article-edit',
@@ -94,9 +96,13 @@ export class ArticleEditComponent implements OnInit {
       this.msg.info('保存成功');
       this.routeUrl.navigateByUrl('/admin/dashboard/main');
     });
+
+
   }
 
 
-
+  goBack() {
+    this.routeUrl.navigateByUrl('/admin/dashboard/main');
+  }
 
 }

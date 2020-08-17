@@ -2,9 +2,9 @@
   <nz-card [nzBordered]="false" nzTitle="文章列表">
     <div nz-card-grid [ngStyle]="{width: '80%',padding: '15px' }" style="box-shadow: none;">
 
-      <nz-table style="padding:0" #nzTable nzShowPagination="true" (nzPageIndexChange)="getArtileList()"
-        [nzNoResult]="noResultMessage2" [nzData]="dataSource" nzSize="small" [nzTotal]="total"
-        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize">
+      <nz-table #nzTable style="padding: 0px;" (nzPageIndexChange)="change($event)" [nzNoResult]="noResultMessage2"
+        [nzFrontPagination]="false" [nzData]="dataSource" nzSize="small" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+        [(nzPageSize)]="pageSize">
         <thead>
           <tr>
             <th width="20%">标题</th>
@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of dataSource">
+          <tr *ngFor="let data of nzTable.data">
 
             <td (click)="rowClick(data)" style="cursor: pointer;">
               {{data.articleTitle}}

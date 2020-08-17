@@ -14,9 +14,10 @@ export class AdminDashboardComponent implements OnInit {
 
 
   dataSource = []; // 文章数据
-  pageSize = 4;
+  pageSize = 3;
 
   pageIndex = 1;
+
   total = 0;
 
 
@@ -28,12 +29,14 @@ export class AdminDashboardComponent implements OnInit {
     this.getArtileList();
   }
   getArtileList() {
-    const param = { pageIndex: this.pageIndex - 1, pageSize: this.pageSize };
+    const param = { pageIndex: this.pageIndex, pageSize: this.pageSize };
     this.blogHomeIndexService.queryArticleByPage(param).subscribe(res => {
       this.dataSource = res.body.list;
       this.total = res.body.total;
     });
   }
+
+
 
   /**
    * 标题点击
@@ -41,5 +44,10 @@ export class AdminDashboardComponent implements OnInit {
   rowClick(item: any) {
     this.route.navigateByUrl('/admin/article/edit?articleId=' + item.articleId);
     // window.open('/#/admin/article/edit?articleId=' + item.articleId);
+  }
+
+  change(e) {
+    this.pageIndex = e;
+    this.getArtileList();
   }
 }
