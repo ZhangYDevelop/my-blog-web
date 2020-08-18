@@ -10,8 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UEditorComponent } from 'ngx-ueditor';
 import { ArticleEditService } from './article-edit.service';
 
-import { ControlWidget } from '@delon/form';
-
 
 @Component({
   selector: 'app-article-edit',
@@ -52,7 +50,8 @@ export class ArticleEditComponent implements OnInit {
         'inserttable', // 插入表格
         '|',
         // 'simpleupload', // 单图上传
-        'insertimage'
+        'insertimage',
+        'attachment'
       ]
     ],
     autoClearinitialContent: true,  // 自动清除初始内容
@@ -96,13 +95,9 @@ export class ArticleEditComponent implements OnInit {
       this.msg.info('保存成功');
       this.routeUrl.navigateByUrl('/admin/dashboard/main');
     });
-
-
   }
 
 
-  goBack() {
-    this.routeUrl.navigateByUrl('/admin/dashboard/main');
-  }
+
 
 }
