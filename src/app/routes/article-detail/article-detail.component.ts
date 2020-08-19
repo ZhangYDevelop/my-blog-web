@@ -14,7 +14,7 @@ import { UEditorComponent } from 'ngx-ueditor';
 
 @Component({
   selector: 'app-article-deatil',
-  templateUrl: './article-detail.component.html',
+  templateUrl: './article-detail.component.html'
 })
 export class ArticleDetailComponent implements OnInit {
 
@@ -59,6 +59,8 @@ export class ArticleDetailComponent implements OnInit {
       if (res.body) {
         this.article = res.body;
         document.getElementById('content').innerHTML = this.article.articleContent;
+
+        $('#content img').css('width','100%');
 
         // 增加浏览数量
         this.blogHomeIndexService.addArticleView(this.articleId).subscribe(() => { });
