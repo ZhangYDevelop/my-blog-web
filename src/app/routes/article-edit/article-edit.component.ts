@@ -98,6 +98,8 @@ export class ArticleEditComponent implements OnInit {
   }
 
 
-
+  goBack() {
+    this.routeUrl.navigateByUrl('/admin/dashboard/main');
+  }
 
 }
