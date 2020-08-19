@@ -86,7 +86,7 @@ export class ArticleEditComponent implements OnInit {
     if (summary && summary.length > 300) {
       summary = summary.substring(0, 300);
     }
-    const content = this.editor.Instance.getContent();
+    let content = this.editor.Instance.getContent();
     const params = {
       articleId: this.article.articleId, articleTitle: this.article.articleTitle,
       articleContent: content, articleSummary: summary, articleStatus: this.article.articleStatus

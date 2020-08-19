@@ -25,6 +25,8 @@ export class ArticleDetailComponent implements OnInit {
 
   randomArticleList = []; // 随机文章
 
+  ueditor_config = {};
+
   likeFlag = false;
 
   isVisible = false;
@@ -58,9 +60,10 @@ export class ArticleDetailComponent implements OnInit {
     this.blogHomeIndexService.getArticleByid(this.articleId).subscribe(res => {
       if (res.body) {
         this.article = res.body;
-        document.getElementById('content').innerHTML = this.article.articleContent;
+        // document.getElementById('content').innerHTML = this.article.articleContent;
 
-        // $('#content img').css('width','100%');
+        //  $('#content ').html(this.article.articleContent);
+         $('#content ').append(this.article.articleContent)
 
         // 增加浏览数量
         this.blogHomeIndexService.addArticleView(this.articleId).subscribe(() => { });
