@@ -60,7 +60,7 @@ export class ArticleDetailComponent implements OnInit {
         this.article = res.body;
         document.getElementById('content').innerHTML = this.article.articleContent;
 
-        $('#content img').css('width','100%');
+        // $('#content img').css('width','100%');
 
         // 增加浏览数量
         this.blogHomeIndexService.addArticleView(this.articleId).subscribe(() => { });
