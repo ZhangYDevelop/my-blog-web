@@ -60,7 +60,7 @@ export class ArticleEditComponent implements OnInit {
     wordCount: true, // 文字计数
     focus: false, // 初始化后获得焦点
     initialFrameHeight: 100, // 设置高度
-    initialFrameWidth: '700', // 设置宽度
+    initialFrameWidth: '100%', // 设置宽度
     enableDragUpload: true, // 启用拖放上传
     enablePasteUpload: true, // 启用粘贴上传
     imageScaleEnabled: true, // 启用图片拉伸缩放
@@ -146,9 +146,9 @@ export class ArticleEditComponent implements OnInit {
         item['check'] = false;
       });
     });
-
-
   }
+
+
 
   /**
    * 保存编辑文章信息

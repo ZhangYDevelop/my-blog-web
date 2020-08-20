@@ -1,5 +1,5 @@
-<div style="padding: 0px 50px 0px 50px;">
-    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '800px'}" style="box-shadow: none;">
+<div id="editDiv" style="padding: 0px 75px 0px 75px;">
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '900px'}" style="box-shadow: none;">
         <div style="background: white; padding: 24px;">
             <div nz-row style=" width: 100%;">
                 <div style="margin-left: 30px;" nz-col>
@@ -16,11 +16,15 @@
             <div nz-row style=" width: 100%;margin-top: 10px;">
                 <div style="margin-left: 30px;" nz-col>
                     <span style="font-weight: bold;">所属分类：</span>
-                    <nz-select  style="width: 200px;"  nzPlaceHolder="--请选择--" [(ngModel)]="categoryLevel1" (ngModelChange)="level1Change($event)">
-                        <nz-option *ngFor= "let item of categoryList" nzLabel="{{item.categoryName}}" nzValue="{{item.categoryId}}"></nz-option>
+                    <nz-select style="width: 200px;" nzPlaceHolder="--请选择--" [(ngModel)]="categoryLevel1"
+                        (ngModelChange)="level1Change($event)">
+                        <nz-option *ngFor="let item of categoryList" nzLabel="{{item.categoryName}}"
+                            nzValue="{{item.categoryId}}"></nz-option>
                     </nz-select>
-                    <nz-select  style="width: 200px; padding-left: 20px;" nzPlaceHolder="--请选择--" [(ngModel)]="categoryLevel2">
-                        <nz-option *ngFor= "let item of level2List" nzLabel="{{item.categoryName}}" nzValue="{{item.categoryId}}"></nz-option>
+                    <nz-select style="width: 200px; padding-left: 20px;" nzPlaceHolder="--请选择--"
+                        [(ngModel)]="categoryLevel2">
+                        <nz-option *ngFor="let item of level2List" nzLabel="{{item.categoryName}}"
+                            nzValue="{{item.categoryId}}"></nz-option>
                     </nz-select>
                 </div>
             </div>

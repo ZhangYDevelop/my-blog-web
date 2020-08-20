@@ -1,5 +1,5 @@
-<div style="padding: 0px 50px 0px 50px;">
-    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '800px'}" style="box-shadow: none;">
+<div style="padding: 0px 75px 0px 75px;">
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '900px'}" style="box-shadow: none;">
         <div style="background: white; padding: 24px;">
 
             <div nz-row>
@@ -19,10 +19,11 @@
             </div>
 
             <div nz-row>
-                <div  style="width: 100%;">
+                <div style="width: 100%;">
                     <!-- <div id="content" nz-row >
                     </div> -->
-                    <ueditor #editor [(ngModel)]="this.article.articleContent" (onReady)="onReady($event)" [config]="ueditor_config"></ueditor>
+                    <ueditor #editor [(ngModel)]="this.article.articleContent" (onReady)="onReady($event)"
+                        [config]="ueditor_config"></ueditor>
                 </div>
                 <div nz-row>
                     <div style="padding: 0px 100px 0px 100px;">
