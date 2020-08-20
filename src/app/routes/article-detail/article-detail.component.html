@@ -1,5 +1,5 @@
-<div style="padding: 0px 100px 0px 100px;">
-    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '60%'}" style="box-shadow: none;">
+<div style="padding: 0px 50px 0px 50px;">
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '800px'}" style="box-shadow: none;">
         <div style="background: white; padding: 24px;">
 
             <div nz-row>
@@ -19,9 +19,10 @@
             </div>
 
             <div nz-row>
-                <div nz-row style="float: left;">
-                    <div id="content" nz-row >
-                    </div>
+                <div  style="width: 100%;">
+                    <!-- <div id="content" nz-row >
+                    </div> -->
+                    <ueditor #editor [(ngModel)]="this.article.articleContent" (onReady)="onReady($event)" [config]="ueditor_config"></ueditor>
                 </div>
                 <div nz-row>
                     <div style="padding: 0px 100px 0px 100px;">
@@ -69,7 +70,7 @@
 
 
     </div>
-    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '40%'}" style="box-shadow: none;">
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '400px'}" style="box-shadow: none;">
         <nz-card style="width:100%;" [nzTitle]="hotArticle">
             <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
                 <div *ngFor=" let item of hotArticleList; let i= index;">

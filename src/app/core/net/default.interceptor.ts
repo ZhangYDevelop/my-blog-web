@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',
@@ -36,7 +37,7 @@ export class DefaultInterceptor implements HttpInterceptor {
   private refreshToking = false;
   private refreshToken$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector, private msg: NzMessageService) { }
 
   private get notification(): NzNotificationService {
     return this.injector.get(NzNotificationService);
@@ -123,8 +124,8 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   private toLogin(): void {
-    this.notification.error(`未登录或登录已过期，请重新登录。`, ``);
-    this.goTo('/blog');
+    this.msg.info('未登录或登录已过期，请重新登录。');
+    this.goTo('/passport/login');
   }
 
   private handleData(ev: HttpResponseBase, req: HttpRequest<any>, next: HttpHandler): Observable<any> {

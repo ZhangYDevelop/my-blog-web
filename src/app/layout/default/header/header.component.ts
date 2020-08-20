@@ -42,4 +42,11 @@ export class HeaderComponent implements OnInit {
   routeClick() {
     this.router.navigateByUrl('/');
   }
+
+  /**
+   * 菜单点击
+   */
+  menuClick(url: string) {
+    this.router.navigateByUrl(url);
+  }
 }

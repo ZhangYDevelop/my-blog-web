@@ -3,6 +3,7 @@ import { _HttpClient } from '@delon/theme';
 import { BlogMainService } from '../../home/blog-main.service';
 
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
   dataSource = []; // 文章数据
-  pageSize = 3;
+  pageSize = 4;
 
   pageIndex = 1;
 
@@ -22,7 +23,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-  constructor(private blogHomeIndexService: BlogMainService, private route: Router) { }
+  constructor(private blogHomeIndexService: BlogMainService, private route: Router, private msg: NzMessageService) { }
 
   ngOnInit() {
 
@@ -49,5 +50,12 @@ export class AdminDashboardComponent implements OnInit {
   change(e) {
     this.pageIndex = e;
     this.getArtileList();
+  }
+
+  deleteRow(data) {
+    this.blogHomeIndexService.deleteArticle(data.articleId).subscribe(res => {
+      this.msg.success('删除成功');
+      this.getArtileList();
+    });
   }
 }

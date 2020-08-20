@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UEditorComponent } from 'ngx-ueditor';
 import { ArticleEditService } from './article-edit.service';
 
+import { BlogHomeService } from 'src/app/layout/default/header/blog-home-header/blog-home.service';
+
 
 @Component({
   selector: 'app-article-edit',
@@ -58,24 +60,94 @@ export class ArticleEditComponent implements OnInit {
     wordCount: true, // 文字计数
     focus: false, // 初始化后获得焦点
     initialFrameHeight: 100, // 设置高度
-    initialFrameWidth: '100%', // 设置宽度
+    initialFrameWidth: '700', // 设置宽度
     enableDragUpload: true, // 启用拖放上传
     enablePasteUpload: true, // 启用粘贴上传
     imageScaleEnabled: true, // 启用图片拉伸缩放
     autoHeightEnabled: true, // 自动高度
   };
 
+  categoryList: any = [];
 
-  constructor(private routeUrl: Router, private blogHomeIndexService: BlogMainService, private router: ActivatedRoute, private msg: NzMessageService, private articleEditService: ArticleEditService) {
-    this.articleId = this.router.snapshot.queryParams.articleId;
+  tagList = [];
+
+  categoryLevel1: any;
+  categoryLevel2: any;
+
+  level2List = [];
+
+  constructor(private routeUrl: Router, private blogHomeService: BlogHomeService, private blogHomeIndexService: BlogMainService, private router: ActivatedRoute, private msg: NzMessageService, private articleEditService: ArticleEditService) {
+    if (this.router.snapshot.queryParams.articleId) {
+      this.articleId = this.router.snapshot.queryParams.articleId;
+    }
   }
   ngOnInit() {
-    this.blogHomeIndexService.getArticleByid(this.articleId).subscribe(res => {
-      if (res.body) {
-        this.article = res.body;
-        this.articleContent = this.article.articleContent;
-      }
+    if (this.articleId) {
+      this.blogHomeIndexService.getArticleByid(this.articleId).subscribe(res => {
+        if (res.body) {
+          this.article = res.body;
+          this.articleContent = this.article.articleContent;
+          // 分类
+          this.blogHomeService.queryAllAtricleCategory().subscribe(res => {
+            const parentList = res.body.filter(item => item.categoryPid === 0);
+            parentList.forEach(element => {
+              const child = res.body.filter(item => item.categoryPid === element.categoryId);
+              element.child = child;
+            });
+            this.categoryList = parentList;
+
+            if (this.article && this.article.categoryList && this.article.categoryList.length >= 1) {
+              this.categoryLevel1 = this.article.categoryList[0].categoryId + '';
+
+              const item = this.categoryList.find(temp => temp.categoryId === this.article.categoryList[0].categoryId);
+              if (item) {
+                this.level2List = item.child;
+                this.level2List = [...this.level2List, item.child];
+                this.categoryLevel2 = this.article.categoryList[1].categoryId + '';
+              }
+            }
+
+          });
+
+          // 标签
+          this.blogHomeService.queryAllTag().subscribe(res => {
+            this.tagList = res.body;
+            this.tagList.forEach(item => {
+              item['check'] = false;
+            });
+
+            if (this.article && this.article.tagList.length > 0) {
+              this.article.tagList.forEach(element => {
+                if (this.tagList.find(item => item.tagId === element.tagId)) {
+                  this.tagList.find(item => item.tagId === element.tagId).check = true;
+                }
+              });
+            }
+          });
+
+        }
+      });
+    }
+
+
+    this.blogHomeService.queryAllAtricleCategory().subscribe(res => {
+      const parentList = res.body.filter(item => item.categoryPid === 0);
+      parentList.forEach(element => {
+        const child = res.body.filter(item => item.categoryPid === element.categoryId);
+        element.child = child;
+      });
+      this.categoryList = parentList;
     });
+
+
+    this.blogHomeService.queryAllTag().subscribe(res => {
+      this.tagList = res.body;
+      this.tagList.forEach(item => {
+        item['check'] = false;
+      });
+    });
+
+
   }
 
   /**
@@ -86,15 +158,37 @@ export class ArticleEditComponent implements OnInit {
     if (summary && summary.length > 300) {
       summary = summary.substring(0, 300);
     }
-    let content = this.editor.Instance.getContent();
+    const content = this.editor.Instance.getContent();
+    const tagIdList = this.tagList.filter(item => item.check === true);
+    let taIdArray = [];
+    if (tagIdList.length > 0) {
+      taIdArray = tagIdList.map(item => item.tagId);
+    }
+    if (this.categoryLevel1) {
+      this.categoryLevel1 = parseInt(this.categoryLevel1);
+    }
+    if (this.categoryLevel2) {
+      this.categoryLevel2 = parseInt(this.categoryLevel2);
+    }
     const params = {
       articleId: this.article.articleId, articleTitle: this.article.articleTitle,
-      articleContent: content, articleSummary: summary, articleStatus: this.article.articleStatus
+      articleContent: content, articleSummary: summary, articleStatus: this.article.articleStatus,
+      articleParentCategoryId: this.categoryLevel1, articleChildCategoryId: this.categoryLevel2,
+      articleTagIds: taIdArray
     };
-    this.articleEditService.updateArticle(params).subscribe(res => {
-      this.msg.info('保存成功');
-      this.routeUrl.navigateByUrl('/admin/dashboard/main');
-    });
+    if (this.articleId) {
+      this.articleEditService.updateArticle(params).subscribe(res => {
+        this.msg.info('保存成功');
+        this.routeUrl.navigateByUrl('/admin/dashboard/main');
+      });
+    } else {
+      params['articleStatus'] = 1;
+      this.articleEditService.addArticle(params).subscribe(res => {
+        this.msg.info('保存成功');
+        this.routeUrl.navigateByUrl('/admin/dashboard/main');
+      });
+    }
+
   }
 
 
@@ -102,4 +196,16 @@ export class ArticleEditComponent implements OnInit {
     this.routeUrl.navigateByUrl('/admin/dashboard/main');
   }
 
+  /**
+   * 分类级别父级变化
+   */
+  level1Change(e: any) {
+    const id = parseInt(e);
+    const item = this.categoryList.find(temp => temp.categoryId === id);
+    this.categoryLevel2 = '';
+    if (item) {
+      this.level2List = item.child;
+      this.level2List = [...this.level2List, item.child];
+    }
+  }
 }

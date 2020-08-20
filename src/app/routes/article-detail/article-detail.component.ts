@@ -25,7 +25,6 @@ export class ArticleDetailComponent implements OnInit {
 
   randomArticleList = []; // 随机文章
 
-  ueditor_config = {};
 
   likeFlag = false;
 
@@ -37,6 +36,32 @@ export class ArticleDetailComponent implements OnInit {
   youkeName = '微博客~游~';
 
   similarArticleList = []; // 相关文章
+
+  ueditor_config = {
+    toolbars: [
+      [
+        'FullScreen', // 全屏
+        'bold', // 加粗
+        'italic', // 斜体
+        'underline', // 下划线
+        '|',
+        'forecolor',  // 字体颜色
+        'backcolor',  // 背景色
+        'fontfamily', // 字体
+        'fontsize', // 字号
+        'insertcode', // 代码语言
+      ]
+    ],
+    autoClearinitialContent: true,  // 自动清除初始内容
+    wordCount: true, // 文字计数
+    focus: false, // 初始化后获得焦点
+    initialFrameHeight: 100, // 设置高度
+    initialFrameWidth: '100%', // 设置宽度
+    enableDragUpload: true, // 启用拖放上传
+    enablePasteUpload: true, // 启用粘贴上传
+    imageScaleEnabled: true, // 启用图片拉伸缩放
+    autoHeightEnabled: true, // 自动高度
+  };
 
   @ViewChild('editor') editor: UEditorComponent; // 编辑器
 
@@ -63,7 +88,7 @@ export class ArticleDetailComponent implements OnInit {
         // document.getElementById('content').innerHTML = this.article.articleContent;
 
         //  $('#content ').html(this.article.articleContent);
-         $('#content ').append(this.article.articleContent)
+         $('#content ').append(this.article.articleContent);
 
         // 增加浏览数量
         this.blogHomeIndexService.addArticleView(this.articleId).subscribe(() => { });
@@ -126,5 +151,12 @@ export class ArticleDetailComponent implements OnInit {
         this.msg.info('评论成功');
       }
     });
+  }
+
+  onReady(e) {
+    this.editor.Instance.disable();
+    $('#edui1_toolbarbox').remove();
+    $('#edui1_bottombar').hide();
+
   }
 }

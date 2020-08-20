@@ -1,19 +1,58 @@
-<div nz-row style="padding: 20px 100px 0px 100px; width: 100%;">
-    <div style="margin-left: 30px;" nz-col>
-        <span>文章标题：</span>
-        <input style="width: 300px;" nz-input [(ngModel)]="article.articleTitle" />
-    </div>
+<div style="padding: 0px 50px 0px 50px;">
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '800px'}" style="box-shadow: none;">
+        <div style="background: white; padding: 24px;">
+            <div nz-row style=" width: 100%;">
+                <div style="margin-left: 30px;" nz-col>
+                    <span style="font-weight: bold;">文章标题：</span>
+                    <input style="width: 300px;" nz-input [(ngModel)]="article.articleTitle" />
+                </div>
+                <div style="margin-left: 30px;" nz-col>
+                    <button nz-button (click)="saveArticleInfo()" nzType="primary">保存</button>
 
-    <div style="margin-left: 30px;" nz-col>
-        <button nz-button (click)="saveArticleInfo()" nzType="primary">保存</button>
+                    <button nz-button (click)="goBack()" style="margin-left: 20px;" nzType="primary">返回</button>
+                </div>
+            </div>
 
-        <button nz-button (click)="goBack()" style="margin-left: 20px;" nzType="primary">返回</button>
-    </div>
-</div>
-<div nz-row style="padding: 0px 100px 0px 100px; width: 100%;">
-    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '100%'}" style="box-shadow: none;">
-        <ueditor #editor [(ngModel)]="articleContent" [config]="ueditor_config"></ueditor>
-    </div>
+            <div nz-row style=" width: 100%;margin-top: 10px;">
+                <div style="margin-left: 30px;" nz-col>
+                    <span style="font-weight: bold;">所属分类：</span>
+                    <nz-select  style="width: 200px;"  nzPlaceHolder="--请选择--" [(ngModel)]="categoryLevel1" (ngModelChange)="level1Change($event)">
+                        <nz-option *ngFor= "let item of categoryList" nzLabel="{{item.categoryName}}" nzValue="{{item.categoryId}}"></nz-option>
+                    </nz-select>
+                    <nz-select  style="width: 200px; padding-left: 20px;" nzPlaceHolder="--请选择--" [(ngModel)]="categoryLevel2">
+                        <nz-option *ngFor= "let item of level2List" nzLabel="{{item.categoryName}}" nzValue="{{item.categoryId}}"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-row style=" width: 100%;margin-top: 10px;">
+                <div style="margin-left: 30px;" nz-col>
+                    <span style="font-weight: bold;">文章标签：</span>
+                    <nz-checkbox-wrapper style="width: 100%;">
+                        <div nz-row>
+                            <div *ngFor="let item of tagList" nz-col><label nz-checkbox nzValue="item.tagId"
+                                    [(ngModel)]="item.check">{{item.tagName}}</label></div>
+                        </div>
+                    </nz-checkbox-wrapper>
+                </div>
+            </div>
 
+            <div nz-row style=" width: 100%;margin-top: 10px;">
+                <ueditor #editor [(ngModel)]="articleContent" [config]="ueditor_config"></ueditor>
+            </div>
+        </div>
+    </div>
+    <div nzHoverable="false" nz-card-grid [ngStyle]="{width: '400px'}" style="box-shadow: none;">
+        <nz-card style="width:100%;" [nzTitle]="hotArticle">
+            <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '100%'}">
+                测试数据
+            </div>
+        </nz-card>
+        <ng-template #hotArticle>
+            <svg class="icon svg-icon" style="width: 20px; height: 20px; float: left;" aria-hidden="true">
+                <use xlink:href="#icon-remen"></use>
+            </svg>
+            <p style="margin-left: 30px; height: 5px;">文章阅读量曲线图</p>
+        </ng-template>
+    </div>
 
 </div>

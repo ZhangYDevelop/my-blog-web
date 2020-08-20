@@ -35,7 +35,11 @@ export class BlogMainService {
 
     private addComponentUrl = '';
 
+    private deleteArticleUrl = '';
+
     constructor(private http: HttpClient) {
+
+        this.deleteArticleUrl = environment.SERVER_URL + '/admin/article/delete';
 
         this.addComponentUrl = environment.SERVER_URL + '/home/comment'
 
@@ -176,6 +180,10 @@ export class BlogMainService {
      */
     getCommonent(): Observable<HttpResponse<any>> {
         return this.http.get<any>(this.conmmoentUrl, { observe: 'response' });
+    }
+
+    deleteArticle(id): Observable<HttpResponse<any>> {
+        return this.http.get<any>(`${this.deleteArticleUrl}/${id}`, { observe: 'response' });
     }
 
 }
