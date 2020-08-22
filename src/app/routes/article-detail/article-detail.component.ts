@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ACLService } from '@delon/acl';
 import { MenuService } from '@delon/theme';
 
@@ -70,6 +70,35 @@ export class ArticleDetailComponent implements OnInit {
 
     this.youkeName = this.youkeName + Number((Math.random() * 100000000000).toFixed(0));
   }
+
+  @HostListener('document:click', ['$event.target'])
+  public onClick(targetElement) {
+    const href: string = targetElement.href;
+    if (href.startsWith('http://www.xiaoyuge.com.cn')) { // 附件下载
+      const fileName = targetElement.innerHTML;
+      const xhr = new XMLHttpRequest();
+      xhr.open('get', href, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.responseType = 'blob';
+      xhr.onload = function (e) {
+        if (this.status === 200) {
+          const blob = this.response;
+          const link = document.createElement('a');
+          const val = URL.createObjectURL(blob);
+          link.href = val;
+          link.download = fileName;
+          link.click();
+          window.URL.revokeObjectURL(href);
+        } else {
+        }
+      };
+      xhr.send();
+    } else {
+      window.open(href);
+    }
+    return false;
+  }
+
   ngOnInit() {
 
     this.blogHomeIndexService.getHotCommonentArticle().subscribe(res => {
@@ -85,10 +114,10 @@ export class ArticleDetailComponent implements OnInit {
     this.blogHomeIndexService.getArticleByid(this.articleId).subscribe(res => {
       if (res.body) {
         this.article = res.body;
-        // document.getElementById('content').innerHTML = this.article.articleContent;
-
-        //  $('#content ').html(this.article.articleContent);
-         $('#content ').append(this.article.articleContent);
+        // 处理p标签
+        const contentStr = this.article.articleContent.replace(/<([\/]?)(p)((:?\s*)(:?[^>]*)(:?\s*))>/g, '<$1div$3>');
+        $('#content').append(contentStr);
+        $('#content div').css('width', '100%');
 
         // 增加浏览数量
         this.blogHomeIndexService.addArticleView(this.articleId).subscribe(() => { });
@@ -151,12 +180,5 @@ export class ArticleDetailComponent implements OnInit {
         this.msg.info('评论成功');
       }
     });
-  }
-
-  onReady(e) {
-    this.editor.Instance.disable();
-    $('#edui1_toolbarbox').remove();
-    $('#edui1_bottombar').hide();
-
   }
 }
