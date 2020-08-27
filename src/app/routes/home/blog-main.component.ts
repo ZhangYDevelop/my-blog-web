@@ -78,7 +78,7 @@ export class BlogHomeComponent implements OnInit {
     autoHeightEnabled: true, // 自动高度
   };
 
-
+  articleViewData = [];
 
   constructor(private blogHomeIndexService: BlogMainService, private router: ActivatedRoute) {
     if (this.router.snapshot.queryParams.wd) {
@@ -120,6 +120,48 @@ export class BlogHomeComponent implements OnInit {
 
     this.blogHomeIndexService.getHotCommonentArticle().subscribe(res => {
       this.hotArticleList = res.body;
+    });
+    this.blogHomeIndexService.getArticleViewTongji().subscribe(res => {
+      if (res.body) {
+        this.articleViewData = res.body;
+        this.handlerEcharts();
+      }
+    });
+
+  }
+
+  handlerEcharts() {
+    const echarts = require('echarts');
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('feeBarChart'));
+    // 绘制图表
+
+    myChart.setOption({
+      tooltip: { trigger: 'axis' },
+      toolbox: {
+        show: false,
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      calculable: true,
+      xAxis: {
+        data: this.articleViewData.map(item => item.days)
+      },
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [{
+        name: 'PV',
+        type: 'bar',
+        data: this.articleViewData.map(item => item.count)
+      }]
     });
   }
 

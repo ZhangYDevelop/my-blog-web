@@ -37,11 +37,13 @@ export class BlogMainService {
 
     private deleteArticleUrl = '';
 
+    private articleTongjiUrl = '';
+
     constructor(private http: HttpClient) {
 
         this.deleteArticleUrl = environment.SERVER_URL + '/admin/article/delete';
 
-        this.addComponentUrl = environment.SERVER_URL + '/home/comment'
+        this.addComponentUrl = environment.SERVER_URL + '/home/comment';
 
         this.likeUrl = environment.SERVER_URL + '/home/article/like';
 
@@ -59,7 +61,7 @@ export class BlogMainService {
 
         this.articleViewUrl = environment.SERVER_URL + '/home/article/view';
 
-        this.optionsUrl = environment.SERVER_URL + '/home/options'
+        this.optionsUrl = environment.SERVER_URL + '/home/options';
 
         this.siteGkUrl = environment.SERVER_URL + '/home/siteGk';
 
@@ -67,42 +69,44 @@ export class BlogMainService {
 
         this.conmmoentUrl = environment.SERVER_URL + '/home/comment/recentComment';
 
+        this.articleTongjiUrl = environment.SERVER_URL + '/home/getArticleViewTongji';
+
     }
 
-    
-      /**
-     * 提交评论
-     * 
-     */
+
+    /**
+   * 提交评论
+   * 
+   */
     addComponent(params): Observable<HttpResponse<any>> {
-        return this.http.post<any>(this.addComponentUrl, params, {  observe: 'response' });
+        return this.http.post<any>(this.addComponentUrl, params, { observe: 'response' });
     }
 
-      /**
-     * 增加文章点赞数
-     * 
-     */
+    /**
+   * 增加文章点赞数
+   * 
+   */
     addArticleLikeNum(articleId, type): Observable<HttpResponse<any>> {
-        return this.http.get<any>(`${this.likeUrl}/${articleId}/${type}`, {  observe: 'response' });
+        return this.http.get<any>(`${this.likeUrl}/${articleId}/${type}`, { observe: 'response' });
     }
 
-    
+
     /**
      * 获取随机文章
      * 
      */
     getRandomArticle(): Observable<HttpResponse<any>> {
-        return this.http.get<any>(this.randomArticleUrl, {  observe: 'response' });
+        return this.http.get<any>(this.randomArticleUrl, { observe: 'response' });
     }
 
-    
 
-     /**
-     * 获取随机文章
-     * 
-     */
+
+    /**
+    * 获取随机文章
+    * 
+    */
     getSimilarArticleList(articleid): Observable<HttpResponse<any>> {
-        return this.http.get<any>(`${this.similarArticleUrl}/${articleid}`, {  observe: 'response' });
+        return this.http.get<any>(`${this.similarArticleUrl}/${articleid}`, { observe: 'response' });
     }
 
 
@@ -111,7 +115,7 @@ export class BlogMainService {
      * 
      */
     getHotCommonentArticle(): Observable<HttpResponse<any>> {
-        return this.http.get<any>(this.mostCommonentArticleUrl, {  observe: 'response' });
+        return this.http.get<any>(this.mostCommonentArticleUrl, { observe: 'response' });
     }
 
     /**
@@ -186,4 +190,11 @@ export class BlogMainService {
         return this.http.get<any>(`${this.deleteArticleUrl}/${id}`, { observe: 'response' });
     }
 
+
+    /**
+     * 获取文章浏览量（根据天统计）
+     */
+    getArticleViewTongji(): Observable<HttpResponse<any>> {
+        return this.http.get<any>(this.articleTongjiUrl, { observe: 'response' });
+    }
 }
