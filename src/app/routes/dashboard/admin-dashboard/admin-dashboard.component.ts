@@ -15,7 +15,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
   dataSource = []; // 文章数据
-  pageSize = 4;
+  pageSize = 20;
 
   pageIndex = 1;
 
