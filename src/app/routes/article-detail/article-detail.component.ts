@@ -74,7 +74,10 @@ export class ArticleDetailComponent implements OnInit {
   @HostListener('document:click', ['$event.target'])
   public onClick(targetElement) {
     const href: string = targetElement.href;
-    if (href.startsWith('http://www.xiaoyuge.com.cn')) { // 附件下载
+    if (!href) {
+      return false;
+    }
+    if (href.startsWith('http://www.xiaoyuge.com.cn') || href.startsWith('http://81.70.31.159')) { // 附件下载
       const fileName = targetElement.innerHTML;
       const xhr = new XMLHttpRequest();
       xhr.open('get', href, true);

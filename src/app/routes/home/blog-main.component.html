@@ -3,10 +3,10 @@
     <div *ngFor=" let item of articleList">
       <nz-card style="width: 100%; padding: 10px 30px 0px 30px;" [nzBordered]="false" [nzTitle]="titleTemplate"
         [nzExtra]="extraTemplate">
-        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '30%', height: '200px', padding: '10px'}"
+        <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '30%', height: '200px', padding: '24px 5px'}"
           style="box-shadow: none;">
 
-          <img style="width: 240px; height: 160px;border-radius: 8px;" src="{{item.imgStr}}" />
+          <img style="width: 210px; height: 140px;border-radius: 8px;" src="{{item.imgStr}}" />
         </div>
         <div nz-card-grid nzHoverable="false" [ngStyle]="{width: '70%', height: '200px'}" style="box-shadow: none;">
           <div>
