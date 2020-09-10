@@ -18,7 +18,7 @@ import { UEditorComponent } from 'ngx-ueditor';
 })
 export class ArticleDetailComponent implements OnInit {
 
-  articleId = ''; // 文章id 
+  articleId = ''; // 文章id
   article: any = {}; // 文章
 
   hotArticleList = []; // 热评文章
@@ -118,9 +118,9 @@ export class ArticleDetailComponent implements OnInit {
       if (res.body) {
         this.article = res.body;
         // 处理p标签
-        const contentStr = this.article.articleContent.replace(/<([\/]?)(p)((:?\s*)(:?[^>]*)(:?\s*))>/g, '<$1div$3>');
-        $('#content').append(contentStr);
-        $('#content div').css('width', '100%');
+        // const contentStr = this.article.articleContent.replace(/<([\/]?)(p)((:?\s*)(:?[^>]*)(:?\s*))>/g, '<$1div$3>');
+        // $('#content').append(contentStr);
+        // $('#content div').css('width', '100%');
 
         // 增加浏览数量
         this.blogHomeIndexService.addArticleView(this.articleId).subscribe(() => { });
@@ -183,5 +183,12 @@ export class ArticleDetailComponent implements OnInit {
         this.msg.info('评论成功');
       }
     });
+  }
+
+  onReady(e) {
+    this.editor.Instance.disable();
+    $('#edui1_toolbarbox').remove();
+    $('#edui1_bottombar').hide();
+
   }
 }

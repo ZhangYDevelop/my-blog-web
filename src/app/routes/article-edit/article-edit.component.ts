@@ -155,8 +155,8 @@ export class ArticleEditComponent implements OnInit {
    */
   saveArticleInfo() {
     let summary = this.editor.Instance.getContentTxt();
-    if (summary && summary.length > 300) {
-      summary = summary.substring(0, 300);
+    if (summary && summary.length > 200) {
+      summary = summary.substring(0, 200);
     }
     const content = this.editor.Instance.getContent();
     const tagIdList = this.tagList.filter(item => item.check === true);
