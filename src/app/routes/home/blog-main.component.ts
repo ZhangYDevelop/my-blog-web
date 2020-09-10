@@ -138,17 +138,8 @@ export class BlogHomeComponent implements OnInit {
 
     myChart.setOption({
       tooltip: { trigger: 'axis' },
-      toolbox: {
-        show: false,
-        feature: {
-          mark: { show: true },
-          dataView: { show: true, readOnly: false },
-          magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-          restore: { show: true },
-          saveAsImage: { show: true }
-        }
-      },
       calculable: true,
+     
       xAxis: {
         data: this.articleViewData.map(item => item.days)
       },
@@ -158,8 +149,14 @@ export class BlogHomeComponent implements OnInit {
         }
       ],
       series: [{
+        type: 'line',
         name: 'PV',
-        type: 'bar',
+        smooth: 0.6,
+            symbol: 'none',
+            lineStyle: {
+                color: '#2adc8a',
+                width: 2
+        },
         data: this.articleViewData.map(item => item.count)
       }]
     });
