@@ -155,7 +155,7 @@ export class BlogHomeComponent implements OnInit {
             symbol: 'none',
             lineStyle: {
                 color: '#2adc8a',
-                width: 2
+                width: 3
         },
         data: this.articleViewData.map(item => item.count)
       }]
