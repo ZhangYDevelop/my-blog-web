@@ -28,6 +28,7 @@ import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashb
 import { ArticleEditComponent } from './article-edit/article-edit.component';
 
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -116,6 +117,8 @@ const routes: Routes = [
   // 单页不包裹Layout
   { path: 'callback/:type', component: CallbackComponent },
   { path: '**', redirectTo: 'exception/404' },
+  // 聊天
+  { path: 'im_client', component: ChatComponent },
 ];
 
 @NgModule({

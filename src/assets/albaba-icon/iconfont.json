@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2085033",
+      "name": "发送",
+      "font_class": "fasong",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "6338143",
+      "name": "客服",
+      "font_class": "kefu",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
       "icon_id": "579291",
       "name": "赏",
       "font_class": "shang",

@@ -183,6 +183,11 @@
 </div>
 
 
+<div (click)="chat()" style="position: absolute; top: 400px; right: 30px;cursor:pointer">
+  <svg class="icon svg-icon" aria-hidden="true" style="width: 30px;height:30px;">
+    <use xlink:href="#icon-kefu"></use>
+  </svg>
+</div>
 <!-- <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script> -->
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="欢迎加微信交流" nzFooter="null" (nzOnCancel)="nzOnCancel()" nzWidth="350">

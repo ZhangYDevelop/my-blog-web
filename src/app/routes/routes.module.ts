@@ -17,6 +17,7 @@ import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashb
 
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ArticleEditComponent } from './article-edit/article-edit.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 const COMPONENTS = [
@@ -31,6 +32,7 @@ const COMPONENTS = [
   // single pages
   UserLockComponent,
   CallbackComponent,
+  ChatComponent,
   BlogHomeComponent,
   ArticleDetailComponent,
   ArticleEditComponent

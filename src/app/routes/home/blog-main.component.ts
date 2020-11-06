@@ -204,4 +204,11 @@ export class BlogHomeComponent implements OnInit {
   titleClick(item: any) {
     window.open('/#/article/detail?articleId=' + item.articleId);
   }
+
+  /**
+   * 去到聊天界面
+   */
+  chat() {
+    window.open('/#/im_client/');
+  }
 }
