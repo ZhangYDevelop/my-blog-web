@@ -141,7 +141,7 @@ export class BlogHomeComponent implements OnInit {
       calculable: true,
      
       xAxis: {
-        data: this.articleViewData.map(item => item.days)
+        data: this.articleViewData.map(item => item.days.substring(5))
       },
       yAxis: [
         {
