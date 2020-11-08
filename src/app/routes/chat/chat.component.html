@@ -1,0 +1,53 @@
+<nz-row class="container">
+    <nz-col style="background: rgba(0, 0, 0, 0.45); border-radius: 5px;width: 65px;">
+        <div>
+            <img style="width: 45px; height: 45px; margin: 50px 10px 0px 10px ;  border-radius: 3px;"
+                src="{{this.adminInfo.userAvatar}}">
+        </div>
+        <div>
+            <svg class="icon svg-icon send"
+                style="width: 45px; height: 45px; margin: 20px 10px 0px 10px;  border-radius: 3px;" aria-hidden="true"
+                (click)="send()">
+                <use xlink:href="#icon-xiaoxi1"></use>
+            </svg>
+        </div>
+    </nz-col>
+    <nz-col style="width: 255px;" class="left">
+        <div class="top">
+            <nz-input-group [(ngModel)]="searchWd" [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="搜索" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <i (click)="search()" nz-icon nzType="search"></i>
+            </ng-template>
+        </div>
+        <ul class="people">
+            <li class="person" [class.active]="selected==idx" *ngFor="let item of chatList,let idx = index"
+                (click)="showChat(item, idx)">
+                <img [src]="item.userAvatar" class="avatar">
+                <span class="name">{{item.username}}</span>
+                <span class="time">{{item.userLastLoginTime | date:"yy/MM/dd"}}</span>
+                <span class="preview"></span>
+            </li>
+        </ul>
+    </nz-col>
+    <nz-col style="width: 680px;" class="right">
+        <div class="top"><span>{{chatUser.userNickname}}</span><span class="clear" (click)="clear()">清空</span></div>
+        <div class="chat" id="chat">
+            <div class="more-msg" *ngIf="hasMoreMsg" (click)="getMoreMsg()">查看更多消息</div>
+            <div class="more-msg" *ngIf="!hasMoreMsg">没有更多消息了</div>
+            <div class="bubble" [class.you]="item.type==0" [class.me]="item.type==1" *ngFor="let item of read">
+                {{item.content}}</div>
+            <div class="unread-time" *ngIf="unread.length">--{{unread[0].created_at}}--</div>
+            <div class="bubble" [class.you]="item.type==0" [class.me]="item.type==1" *ngFor="let item of unread">
+                {{item.content}}</div>
+        </div>
+        <div class="write">
+            <input type="text" [(ngModel)]="sendMsg" [disabled]="onlyRead" (keyup)="($event.which === 13)?send():0">
+            <!-- <img src="../../../../assets/outline/send.svg" class="send" (click)="send()"> -->
+            <svg class="icon svg-icon send" aria-hidden="true">
+                <use xlink:href="#icon-fasong"></use>
+            </svg>
+        </div>
+    </nz-col>
+</nz-row>

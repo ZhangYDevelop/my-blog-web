@@ -1,0 +1,204 @@
+:host {
+    display: block;
+    margin: 0 auto;
+    ::ng-deep {
+      .container{
+        margin: 50px auto;
+        width: 1000px;
+        height: 600px;
+        box-shadow: 0 0 6px #ccc;
+        background: #fff;
+        border-radius: 5px;
+      }
+      .left {
+        border-right:1px solid #e6e6e6;
+        height: 100%;
+      }
+      .top {
+        width: 100%;
+        height: 50px;
+        padding: 15px;
+        background-color: #eceff1;
+        border-bottom: 1px solid #e6e6e6;
+        color: #999;
+        font-size: 15px;
+      }
+      .top span {
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-left: 10px;
+      }
+      .left .top {
+        background-color: #fff;
+      }
+      .people {
+        width: 100%;
+        list-style: none;
+        padding: 1px;
+        margin: 0;
+        
+      }
+      .person {
+        padding: 10px 0px 0px 20px;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 1px solid #f2f2f2;
+      }
+      .person:hover, .active.active {
+       background: #eceff1;
+        color: #999;
+      }
+      .person .avatar {
+        float: left;
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+        border-radius: 50%;
+      }
+      .person .name {
+        font-size: 14px;
+        line-height: 22px;
+        color: #000;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        overflow: hidden !important;
+        max-width: 60%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .person .time {
+        font-size: 14px;
+        position: absolute;
+        top: 16px;
+        right: 10%;
+        padding: 0 0 5px 5px;
+      }
+      .person .preview {
+        font-size: 14px;
+        display: inline-block;
+        overflow: hidden !important;
+        width: 80%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .right {
+        height: 100%;
+        position: relative;
+        .clear {
+          color: red;
+          float: right;
+          cursor: pointer;
+        }
+      }
+      .chat {
+        position: relative;
+        padding: 0 35px 92px;
+        border-width: 1px 1px 1px 0;
+        border-style: solid;
+        border-color: #ffffff;
+        height: calc(100% - 150px);
+        overflow: auto;
+        justify-content: flex-end;
+        flex-direction: column;
+        margin-top: 20px;
+      }
+      .chat::-webkit-scrollbar{
+        width: 6px;
+        height: 10px;
+        background-color: #fff;
+      }
+      .chat::-webkit-scrollbar-track{
+        border-radius: 10px;
+        background-color: #fff;
+      }
+      .chat::-webkit-scrollbar-thumb{
+        border-radius: 10px;
+        box-shadow: inset 0 0 2px rgba(0,0,0,.3);
+        background-color: #ccc;
+      }
+      .chat .unread-time {
+        position: relative;
+        width: 100%;
+        margin-bottom: 27px;
+        text-align: center;
+        font-size: 14px;
+        color: #999;
+      }
+      .chat .more-msg {
+        margin-bottom: 27px;
+        text-align: center;
+        font-size: 12px;
+        color: #00b0ff;
+        cursor: pointer;
+      }
+      .chat .bubble {
+        font-size: 16px;
+        position: relative;
+        display: inline-block;
+        clear: both;
+        margin-bottom: 8px;
+        padding: 13px 14px;
+        vertical-align: top;
+        border-radius: 5px;
+        &:before {
+          position: absolute;
+          top: 19px;
+          display: block;
+          width: 8px;
+          height: 6px;
+          content: '\00a0';
+          -webkit-transform: rotate(29deg) skew(-35deg);
+          transform: rotate(29deg) skew(-35deg);
+        }
+      }
+      .chat .bubble.you {
+        float: left;
+        color: #fff;
+        background-color: #00b0ff;
+        &:before {
+          left: -3px;
+          background-color: #00b0ff;
+        }
+      }
+      .chat .bubble.me {
+        float: right;
+        color: #000;
+        background-color: #eceff1;
+        &:before {
+          right: -3px;
+          background-color: #eceff1;
+        }
+      }
+      .right .write {
+        position: absolute;
+        bottom: 29px;
+        left: 30px;
+        height: 42px;
+        padding-left: 8px;
+        border: 1px solid #e6e6e6;
+        background-color: #eceff1;
+        width: calc(100% - 58px);
+        border-radius: 5px;
+      }
+      .write input {
+        font-size: 16px;
+        float: left;
+        width: 92%;
+        height: 40px;
+        padding: 0 10px;
+        color: #000;
+        border: 0;
+        outline: none;
+        background-color: #eceff1;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 400;
+      }
+      .send {
+        display: inline-block;
+        width: 20px;
+        height: 42px;
+        margin-left: 11px;
+        cursor: pointer;
+      }
+    }
+}

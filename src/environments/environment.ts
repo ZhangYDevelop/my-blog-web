@@ -6,7 +6,8 @@ export const environment = {
   SERVER_URL: `http://81.70.31.159:8080/server`,
   production: false,
   useHash: true,
-  fileDownPath: 'http://81.70.31.159/blog/uploads'
+  fileDownPath: 'http://81.70.31.159/blog/uploads',
+  cimSocketUrl: 'http://localhost:9999'
 };
 
 /*

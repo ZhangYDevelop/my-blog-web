@@ -75,17 +75,19 @@ export class BlogMainService {
 
 
     /**
-   * 提交评论
-   * 
-   */
+     * 
+     * @param params 提交评论
+     *
+     */
     addComponent(params): Observable<HttpResponse<any>> {
         return this.http.post<any>(this.addComponentUrl, params, { observe: 'response' });
     }
 
     /**
-   * 增加文章点赞数
-   * 
-   */
+     * 增加文章点赞数
+     * @param articleId 文章ID
+     * @param type 类型
+     */
     addArticleLikeNum(articleId, type): Observable<HttpResponse<any>> {
         return this.http.get<any>(`${this.likeUrl}/${articleId}/${type}`, { observe: 'response' });
     }
@@ -102,9 +104,9 @@ export class BlogMainService {
 
 
     /**
-    * 获取随机文章
-    * 
-    */
+     * 
+     * @param articleid 获取相关文章
+     */
     getSimilarArticleList(articleid): Observable<HttpResponse<any>> {
         return this.http.get<any>(`${this.similarArticleUrl}/${articleid}`, { observe: 'response' });
     }
@@ -128,7 +130,7 @@ export class BlogMainService {
 
     /**
      * 根据文章ID增加文章浏览数量
-     * @param id
+     * @param id 文章ID
      */
     addArticleView(id): Observable<HttpResponse<any>> {
         return this.http.get<any>(`${this.articleViewUrl}/${id}`, { observe: 'response' });
@@ -145,7 +147,7 @@ export class BlogMainService {
 
     /**
      * 根据文章id获取文章
-     * @param id
+     * @param id 文章ID
      */
     getArticleByid(id): Observable<HttpResponse<any>> {
         return this.http.get<any>(`${this.articleDetailUrl}/${id}`, { observe: 'response' });
@@ -153,9 +155,8 @@ export class BlogMainService {
 
 
     /**
-    * 参数
-    * 
-    */
+     * 获取网站参数
+     */
     queryOptions(): Observable<HttpResponse<any>> {
         return this.http.get<any>(this.optionsUrl, { observe: 'response' });
     }
@@ -163,18 +164,16 @@ export class BlogMainService {
 
 
     /**
-   * 网站概况
-   * 
-   */
+     * 网站概况
+     */
     getSiteGk(): Observable<HttpResponse<any>> {
         return this.http.get<any>(this.siteGkUrl, { observe: 'response' });
     }
 
 
     /**
-   * 网站通知
-   * 
-   */
+     * 网站通知
+     */
     getNotice(): Observable<HttpResponse<any>> {
         return this.http.get<any>(this.noticeUrl, { observe: 'response' });
     }
