@@ -161,4 +161,11 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  /**
+   * 清空缓存消息
+   */
+  clear() {
+    this.read = [];
+  }
+
 }
