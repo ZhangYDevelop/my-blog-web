@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 
 import * as $ from 'jquery';
 import { isTemplateRef } from 'ng-zorro-antd/core/util';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { from } from 'rxjs';
 import { User } from '../passport/login/login.model';
 import { ChatMessage } from './chat.model';
@@ -47,12 +48,14 @@ export class ChatComponent implements OnInit {
   read = []; // 已读消息
 
 
-  constructor(private http: _HttpClient, private chatService: ChatService, @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) {
+  constructor(private http: _HttpClient, private chatService: ChatService, @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
+              private msg: NzMessageService) {
     const userNames = tokenService.get().name;
     const params: any = { userName: userNames };
     this.chatService.getUserByUserName(params).subscribe(res => {
       this.adminInfo = res.body;
       this.adminInfo.userAvatar = environment.fileDownPath + this.adminInfo.userAvatar;
+      this.getChatList();
     });
   }
 
@@ -60,7 +63,6 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSocket();
-    this.getChatList();
   }
 
   /**
@@ -144,6 +146,9 @@ export class ChatComponent implements OnInit {
    * 发送消息
    */
   send() {
+    if (!this.sendMsg) {
+      this.msg.warning('发送消息不能为空');
+    }
     const message = new ChatMessage();
     message.action = '2';
     message.content = this.sendMsg;
