@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { env } from 'process';
 import { Observable } from 'rxjs';
 import { ReqestParamsUtils } from '../helps/request-params-utils';
 import { User } from '../passport/login/login.model';
@@ -16,6 +17,8 @@ export class ChatService {
 
     private userList = '';
 
+    private userGroupList = '';
+
     constructor(private http: HttpClient) {
 
         this.sentMessageUrl = environment.cimSocketUrl + '/api/message/send';
@@ -23,6 +26,8 @@ export class ChatService {
         this.userUrl = environment.SERVER_URL + '/admin/user/getUserByUserName';
 
         this.userList = environment.SERVER_URL + '/admin/user/listUser';
+
+        this.userGroupList = environment.cimSocketUrl + '/api/userGroup/getUserGroupListUserName';
     }
 
     /**
@@ -47,6 +52,13 @@ export class ChatService {
      */
     getUserList(): Observable<HttpResponse<User[]>> {
         return this.http.get<User[]>(this.userList, { observe: 'response' });
+    }
+
+    
+
+    getUserGroupByUserName(params): Observable<HttpResponse<any>> {
+        const reqParam = ReqestParamsUtils.getParams(params);
+        return this.http.get<any>(this.userGroupList, {params: reqParam, observe: 'response' });
     }
 
 

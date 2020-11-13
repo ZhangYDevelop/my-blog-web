@@ -3,11 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  SERVER_URL: `http://81.70.31.159:8080/server`,
+  SERVER_URL: `http://localhost:8080/server`,
   production: false,
   useHash: true,
   fileDownPath: 'http://81.70.31.159/blog/uploads',
-  cimSocketUrl: 'http://localhost:9999'
+  cimSocketUrl: 'http://localhost:9999/socketServer'
 };
 
 /*

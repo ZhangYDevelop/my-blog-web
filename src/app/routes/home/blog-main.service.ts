@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class BlogMainService {
 
     private articleUrl = '';
+    private articleBackUrl = '';
 
     private articleSearchWdUrl = '';
 
@@ -54,6 +55,8 @@ export class BlogMainService {
         this.mostCommonentArticleUrl = environment.SERVER_URL + '/home/article/mostCommentArticleList';
 
         this.articleUrl = environment.SERVER_URL + '/home/index';
+
+        this.articleBackUrl = environment.SERVER_URL + '/admin/index';
 
         this.articleSearchWdUrl = environment.SERVER_URL + '/home/index/search';
 
@@ -145,6 +148,13 @@ export class BlogMainService {
         return this.http.get<any>(this.articleUrl, { params: param, observe: 'response' });
     }
 
+    /**
+     * 查询所有文章
+     * 
+     */
+    queryArticleByPageBack(param): Observable<HttpResponse<any>> {
+        return this.http.get<any>(this.articleBackUrl, { params: param, observe: 'response' });
+    }
     /**
      * 根据文章id获取文章
      * @param id 文章ID

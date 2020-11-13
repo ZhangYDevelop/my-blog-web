@@ -6,7 +6,7 @@
         </div>
         <div>
             <svg class="icon svg-icon send"
-                style="width: 45px; height: 45px; margin: 20px 10px 0px 10px;  border-radius: 3px;" aria-hidden="true">
+                style="width: 30px; height: 30px; margin: 20px 15px 0px 15px;;  border-radius: 3px;" aria-hidden="true">
                 <use xlink:href="#icon-xiaoxi1"></use>
             </svg>
         </div>
@@ -28,10 +28,17 @@
                 <span class="time">{{item.userLastLoginTime | date:"yy/MM/dd"}}</span>
                 <span class="preview"></span>
             </li>
+            <li class="person" [class.active]="groupSelected==idx" *ngFor="let item of charGroup,let idx = index"
+                 (click)="showChatGroup(item, idx)">
+                <img [src]="item.groupAvatar" class="avatar">
+                <span class="name">{{item.groupName}}</span>
+                <span class="time"></span>
+                <span class="preview"></span>
+            </li>
         </ul>
     </nz-col>
     <nz-col style="width: 680px;" class="right">
-        <div class="top" style="background-color:white;"><span>{{chatUser.username}}</span><span class="clear" (click)="clear()">清空</span></div>
+        <div class="top" style="background-color:white;"><span>{{chatUser !== null ? chatUser.username : groupUser.groupName}}</span><span class="clear" (click)="clear()">清空</span></div>
         <div class="chat" id="chat">
             <div class="more-msg" *ngIf="hasMoreMsg" (click)="getMoreMsg()">查看更多消息</div>
             <div class="more-msg" *ngIf="!hasMoreMsg">没有更多消息了</div>
@@ -42,14 +49,14 @@
                 {{item.content}}</div>
         </div>
         <div class="write">
-            <input type="text" [(ngModel)]="sendMsg" [disabled]="onlyRead" (keyup)="($event.which === 13)?send():0">
-            <!-- <img src="../../../../assets/outline/send.svg" class="send" (click)="send()"> -->
-            <div  (click)="send()" >
-                <svg class="icon svg-icon send" aria-hidden="true">
-                    <use xlink:href="#icon-fasong"></use>
-                </svg>
-            </div>
-           
+                <input type="text" style="width: calc(100% - 35px);" nz-input [(ngModel)]="sendMsg"   [disabled]="onlyRead" 
+                (keyup)="($event.which === 13)?send():0"  />
+                <div  (click)="send()" style="float: right;" > 
+                    <svg class="icon svg-icon send" style="float: right; margin-top: 10px;" aria-hidden="true">
+                        <use xlink:href="#icon-fasong"></use>
+                    </svg>
+                 </div>
+             
         </div>
     </nz-col>
 </nz-row>

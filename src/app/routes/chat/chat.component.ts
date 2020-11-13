@@ -24,6 +24,8 @@ export class ChatComponent implements OnInit {
 
   selected = 0; // 当前选中的会话
 
+  groupSelected: any;
+
   onlyRead = false;
 
 
@@ -42,6 +44,10 @@ export class ChatComponent implements OnInit {
   adminInfo: User = new User(); // 当前登录用户信息
 
   chatUser: User = new User(); // 当前聊天对象
+
+  groupUser: any; // 群组聊天对象
+
+  charGroup = []; // 聊天群组
 
   unread = []; // 未读消息
 
@@ -79,6 +85,16 @@ export class ChatComponent implements OnInit {
         this.chatUser = this.chatList[0];
       }
     });
+    const param = {userName: this.adminInfo.username};
+    this.chatService.getUserGroupByUserName(param).subscribe(res => {
+      if (res.body) {
+        this.charGroup = res.body;
+        this.charGroup.forEach(group => {
+          group.groupAvatar = environment.fileDownPath + group.groupAvatar;
+        });
+       
+      }
+    });
   }
 
   /**
@@ -88,9 +104,26 @@ export class ChatComponent implements OnInit {
    * @param idx 对象索引
    */
   showChat(item: User, idx) {
+    this.clear();
     this.selected = idx;
     this.chatUser = item;
+    this.groupUser = null;
+    this.groupSelected = 9999999;
     // 获取聊天记录
+  }
+
+  /**
+   * 展开群组聊天
+   * @param item 聊天对象
+   * @param idx 对象索引
+   */
+  showChatGroup(item, idx) {
+    this.clear();
+    this.groupSelected = idx;
+    this.groupUser = item;
+
+    this.chatUser = null;
+    this.selected = 9999999;
   }
 
   /**
@@ -134,7 +167,15 @@ export class ChatComponent implements OnInit {
              */
             CIMPushManager.onInterceptMessageReceived = (data) => {
               console.log(data);
-              this.read.push({ content: data.content, type: '0' });
+              if (this.chatUser && this.chatUser.username === data.sender) {
+                this.read.push({ content: data.content, type: '0' });
+              }
+              if (this.groupUser) {
+                if (data.receiver === this.groupUser.groupCode && data.sender !== this.adminInfo.username) {
+                  this.read.push({ content: data.content, type: '0' });
+                }
+              }
+              
             };
           });
         });
@@ -147,13 +188,20 @@ export class ChatComponent implements OnInit {
    */
   send() {
     if (!this.sendMsg) {
-      this.msg.warning('发送消息不能为空');
+      return this.msg.warning('发送消息不能为空');
     }
     const message = new ChatMessage();
-    message.action = '2';
+    if (this.chatUser) {
+      message.action = '2';
+      message.receiver = this.chatUser.username;
+    } else {
+      message.action = '4';
+      message.receiver = this.groupUser.groupCode;
+    }
+    
     message.content = this.sendMsg;
     message.sender = this.adminInfo.username;
-    message.receiver = this.chatUser.username;
+    
     message.format = '0';
     this.chatService.sendMessage(message).subscribe(res => {
       this.read.push({ content: this.sendMsg, type: '1' });
@@ -166,6 +214,13 @@ export class ChatComponent implements OnInit {
    */
   clear() {
     this.read = [];
+  }
+
+  /**
+   * 查看更多消息
+   */ 
+  getMoreMsg() {
+
   }
 
 }

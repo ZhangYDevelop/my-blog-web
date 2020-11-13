@@ -41,7 +41,6 @@ CIMPushManager.bindAccount = function (account) {
         deviceId = generateUUID();
         window.localStorage.deviceId = deviceId;
     }
-
     let browser = getBrowser();
     let body = new proto.com.farsunset.cim.sdk.web.model.SentBody();
     body.setKey("client_bind");

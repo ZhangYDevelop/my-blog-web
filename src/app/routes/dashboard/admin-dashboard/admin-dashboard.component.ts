@@ -31,7 +31,7 @@ export class AdminDashboardComponent implements OnInit {
   }
   getArtileList() {
     const param = { pageIndex: this.pageIndex, pageSize: this.pageSize };
-    this.blogHomeIndexService.queryArticleByPage(param).subscribe(res => {
+    this.blogHomeIndexService.queryArticleByPageBack(param).subscribe(res => {
       this.dataSource = res.body.list;
       this.total = res.body.total;
     });
